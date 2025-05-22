@@ -37,12 +37,7 @@ print("Original text:", sample["text"])
 print("Tokenized:", tokens)
 
 #2 ---------------------------------------------------------------------------------- 2
-from transformers import (
-    DataCollatorWithPadding,
-    AutoModelForSequenceClassification,
-    TrainingArguments,
-    Trainer
-)
+from transformers import DataCollatorWithPadding, AutoModelForSequenceClassification, TrainingArguments, Trainer
 import numpy as np
 
 #2.1
@@ -71,10 +66,10 @@ training_args = TrainingArguments(
     eval_strategy="epoch",
     save_strategy="epoch",
     load_best_model_at_end=True,
-    learning_rate=3e-5,  # changed
-    per_device_train_batch_size=32,  # changed
-    per_device_eval_batch_size=64,   # changed
-    num_train_epochs=4,              # changed
+    learning_rate=2e-5,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=32,
+    num_train_epochs=3,
     weight_decay=0.01,
 )
 
