@@ -389,7 +389,7 @@ This project was developed collaboratively by a team of four developers:
   - Event-driven communication implementation
   - Schedule update and notification logic
 
-- **Project Owner** - Frontend, Transaction Manager & Account Manager
+- **[@adbreeker](https://github.com/adbreeker)** (me) - Frontend, Transaction Manager & Account Manager
   - React frontend application with real-time updates
   - .NET Core transaction processing service (SAGA pattern)
   - User authentication and account management service
