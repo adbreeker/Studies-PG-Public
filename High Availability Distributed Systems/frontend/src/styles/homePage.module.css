@@ -1,0 +1,265 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.trainList {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--light-color);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.trainCard {
+  background: var(--light-color);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.trainTitle {
+  font-size: var(--font-size-medium);
+  font-family: var(--font-family-default);
+  margin-bottom: 0.3rem;
+  margin-top: 0rem;
+  color: var(--text-color);
+}
+
+.trainDetails {
+  margin: 1rem 0 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #f0f6ff;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trainDetailRow {
+  display: flex;
+  gap: 0.3rem;
+  align-items: baseline;
+}
+
+.trainDetailLabel {
+  font-weight: bold;
+  color: var(--text-color);
+  margin-right: 0.2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.searchBox {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.searchRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.searchColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dateColumn {
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  height: 2.5rem;
+  line-height: 1.5rem;
+}
+
+.suggestions {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  position: absolute;
+  z-index: 1000;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.suggestionItem {
+  padding: 8px;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+}
+
+.suggestionItem:hover {
+  background-color: var(--border-color);
+}
+
+.trainCars {
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.trainCarIcon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-color);
+  -webkit-mask-image: var(--car-icon);
+  mask-image: var(--car-icon);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.trainCarIcon:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+.selectedCar {
+  background-color: var(--secondary-color); 
+  transform: scale(1.1);
+}
+
+.trainCarIcon:disabled {
+  transform: scale(1);
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Live updates styles */
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.liveUpdates {
+  color: #28a745;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.trainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.changeIndicator {
+  background: #ffc107;
+  color: #212529;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  animation: fadeInBounce 0.5s ease-out;
+  margin-left: 0.5rem;
+}
+
+.priceChanged {
+  border: 2px solid #28a745 !important;
+  background-color: #f8fff9 !important;
+  animation: pulseGreen 2s ease-in-out;
+}
+
+.availabilityChanged {
+  border: 2px solid #dc3545 !important;
+  background-color: #fff8f8 !important;
+  animation: pulseRed 2s ease-in-out;
+}
+
+.priceHighlight {
+  color: #28a745 !important;
+  font-weight: bold !important;
+  animation: highlightFlash 1s ease-in-out;
+}
+
+.availabilityHighlight {
+  color: #dc3545 !important;
+  font-weight: bold !important;
+  animation: highlightFlash 1s ease-in-out;
+}
+
+.updateBadge {
+  background: #28a745;
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  margin-left: 0.5rem;
+  animation: bounceIn 0.5s ease-out;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+@keyframes pulseRed {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+@keyframes fadeInBounce {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.8); }
+  50% { transform: translateY(-5px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes highlightFlash {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(40, 167, 69, 0.2); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

@@ -1,0 +1,142 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.accountContent {
+  background: var(--light-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin-top: 2rem;
+}
+
+.reservationsContent {
+  background: var(--light-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin-top: 2rem;
+}
+
+.accountWelcome {
+  font-size: var(--font-size-medium);
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.accountLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.accountLink {
+  color: var(--secondary-color);
+  font-size: var(--font-size-medium);
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  background: var(--background-color);
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid var(--secondary-color);
+}
+
+.accountLink:hover {
+  background: var(--secondary-color);
+  color: var(--light-color);
+}
+
+.accountMessage {
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--info-color);
+  font-size: var(--font-size-medium);
+}
+
+.reservationsTitle {
+  font-size: var(--font-size-title2);
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.reservationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.reservationCard {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.reservationLabel {
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+.reservationDate {
+  color: var(--text-color);
+  font-size: var(--font-size-small);
+  margin-left: 0.5rem;
+}
+
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--light-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loginForm label {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm input {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.toggleMode {
+  margin-top: 10px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.toggleMode:hover {
+  color: var(--hover-color);
+}
+
+.mainTitle, .reservationsTitle {
+  margin-top: 4.5rem; /* adjust if your navbar is fixed and tall */
+}
+

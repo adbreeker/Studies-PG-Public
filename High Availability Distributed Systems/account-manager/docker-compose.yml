@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  account-manager:
+    build:
+      context: .
+    ports:
+      - "5220:5220"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5220
+      #LOCAL DATABASE- ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=mydb;Username=admin;Password=adminpass
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mydb;Username=admin;Password=adminpass
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

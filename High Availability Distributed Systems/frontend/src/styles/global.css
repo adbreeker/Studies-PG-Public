@@ -1,0 +1,140 @@
+:root {
+  /* colors */
+  --primary-color: #333;
+  --secondary-color: #007bff;
+  --background-color: #f4f4f4;
+  --text-color: #444;
+  --error-color: red;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --border-color: #ccc;
+  --hover-color: #555;
+
+  /* font sizes */
+  --font-size-small: 0.9rem;
+  --font-size-medium: 1.2rem;
+  --font-size-large: 1.5rem;
+  --font-size-title1: 2.5rem;
+  --font-size-title2: 2rem;
+
+  /* fonts */
+  --font-family-party: 'Comic Sans MS', cursive, sans-serif;
+  --font-family-default: sans-serif;
+}
+
+body {
+  font-family: var(--font-family-default);
+  background: var(--background-color);
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+/* global typography styles */
+h1 {
+  font-size: var(--font-size-title1);
+  font-family: var(--font-family-default);
+}
+
+h1.mainTitle {
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  color: var(--primary-color);
+  font-size: var(--font-size-title1);
+  font-family: var(--font-family-default);
+}
+
+h2 {
+  font-size: var(--font-size-title2);
+  font-family: var(--font-family-default);
+}
+
+h3, h4, h5, h6 {
+  font-size: var(--font-size-large);
+  font-family: var(--font-family-default);
+}
+
+p, span, li {
+  font-size: var(--font-size-medium);
+  font-family: var(--font-family-default);
+}
+
+small {
+  font-size: var(--font-size-small);
+  font-family: var(--font-family-default);
+}
+
+label {
+  font-size: var(--font-size-medium);
+  font-family: var(--font-family-default);
+  gap: 0.5rem;
+}
+
+button.primary {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.1s ease;
+}
+
+button.secondary {
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.1s ease;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.errorMessage {
+  color: var(--error-color);
+  font-size: var(--font-size-small);
+  margin-top: -5px;
+}
+
+.successMessage {
+  color: var(--success-color);
+  font-size: var(--font-size-small);
+  margin-top: -5px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.spinner {
+  border: 4px solid var(--background-color);
+  border-top: 4px solid var(--secondary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

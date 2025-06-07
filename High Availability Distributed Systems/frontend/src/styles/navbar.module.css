@@ -1,0 +1,84 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.left {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.link {
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.accountContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.accountPicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.accountName {
+  font-size: var(--font-size-small);
+  font-family: var(--font-family-default);
+}
+
+.dropdownPanel {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.dropdownButton {
+  background: none;
+  border: none;
+  color: var(--light-color);
+  text-align: left;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+}
+
+.dropdownButton:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}

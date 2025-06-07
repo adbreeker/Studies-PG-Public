@@ -1,0 +1,93 @@
+# Connection upgrade map for WebSockets
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+
+    index index.html;
+
+    # Handle requests for routes in the React app
+    location / {
+        try_files $uri /index.html;
+    }
+
+    # Serve static assets
+    location /assets/ {
+        try_files $uri =404;
+    }
+
+    # Proxy for train-scraper API
+    location /api/train-scraper/ {
+        proxy_pass ${TRAIN_SCRAPER_URL}/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    # Proxy for account-manager API
+    location /api/account-manager/ {
+        proxy_pass ${ACCOUNT_MANAGER_URL}/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    # Proxy for transaction-manager API with WebSocket support
+    location /api/transaction-manager/ {
+        proxy_pass ${TRANSACTION_MANAGER_URL}/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+    }    
+    
+    # Proxy for analytics-service API
+    location /api/analytics/ {
+        proxy_pass http://analytics-service:5223/api/analytics/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    # Proxy for analytics-service SignalR hub (without trailing slash)
+    location /analyticsHub {
+        proxy_pass http://analytics-service:5223/analyticsHub;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }    
+    
+    # Proxy for analytics-service SignalR hub (with trailing slash)
+    location /analyticsHub/ {
+        proxy_pass http://analytics-service:5223/analyticsHub/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_page 404 /index.html;
+
+    # Logging
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+}

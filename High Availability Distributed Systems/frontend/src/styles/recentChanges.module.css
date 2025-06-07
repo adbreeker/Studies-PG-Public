@@ -1,0 +1,99 @@
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.changesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.changeCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-left: 4px solid transparent;
+  animation: slideIn 0.3s ease-out;
+  transition: transform 0.2s ease;
+}
+
+.changeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.price_change {
+  border-left-color: #28a745;
+}
+
+.availability_change {
+  border-left-color: #dc3545;
+}
+
+.changeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.changeType {
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: #f8f9fa;
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.timestamp {
+  color: #6c757d;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.trainId {
+  color: #007bff;
+  font-weight: 500;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.details {
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+.noChanges {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

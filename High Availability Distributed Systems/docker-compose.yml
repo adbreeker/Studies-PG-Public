@@ -1,0 +1,137 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_SCRAPER_TIMEOUT_MS: 1000
+    ports:
+      - "3000:80" # Map port 80 in the container to port 3000 on the host
+    environment:
+      - NODE_ENV=production
+      - TRAIN_SCRAPER_URL=http://train-scraper:8080
+      - ACCOUNT_MANAGER_URL=http://account-manager:5220
+      - TRANSACTION_MANAGER_URL=http://transaction-manager:5221
+      - CHANGES_MANAGER_URL=http://changes-manager:5222
+      - ANALYTICS_SERVICE_URL=http://analytics-service:5223
+    depends_on:
+      - train-scraper
+      - account-manager
+      - transaction-manager
+      - analytics-service
+    networks:
+      - app-network
+
+  train-scraper:
+    container_name: train-scraper
+    build:
+      context: ./train-scraper
+    ports:
+      - "8080:8080"
+    depends_on:
+      - selenium-firefox
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  selenium-firefox:
+    container_name: selenium-firefox
+    image: "selenium/standalone-firefox"
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - app-network
+
+  account-manager:
+    container_name: account-manager
+    build:
+      context: ./account-manager
+    ports:
+      - "5220:5220"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5220
+      #LOCAL DATABASE- ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=mydb;Username=admin;Password=adminpass
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mydb;Username=admin;Password=adminpass
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  transaction-manager:
+    container_name: transaction-manager
+    build:
+      context: ./transaction-manager
+    ports:
+      - "5221:5221"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5221
+      #LOCAL DATABASE- ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=mydb;Username=admin;Password=adminpass
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mydb;Username=admin;Password=adminpass
+      - CORS_ALLOWED_ORIGINS=http://frontend:80,http://localhost:3000
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  changes-manager:
+    container_name: changes-manager
+    build:
+      context: ./changes-manager
+    ports:
+      - "5222:5222"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5222
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mydb;Username=admin;Password=adminpass
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  analytics-service:
+    container_name: analytics-service
+    build:
+      context: ./analytics-service
+    ports:
+      - "5223:5223"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5223
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mydb;Username=admin;Password=adminpass
+      - TransactionManagerApiUrl=http://transaction-manager:5221
+    depends_on:
+      - postgres
+      - transaction-manager
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

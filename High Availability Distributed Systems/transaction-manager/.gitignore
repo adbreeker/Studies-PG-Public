@@ -1,0 +1,92 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.log
+*.vspscc
+*.vssscc
+*.tmp
+*.csproj.user
+*.dbmdl
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User-specific files
+*.rsuser
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Entity Framework
+*.edmx.diagram
+*.edmx.sql
+*.edmx
+
+# Azure
+*.azure*
+
+# DotNet
+*.dotnet_toolchain/
+.dotnet_toolchain/
+
+# Coverage
+*.coverage
+*.coveragexml
+*.testlog
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Code analysis
+*.ruleset
+*.editorconfig
+
+# IDE-specific
+.idea/
+*.iml
+
+# Temporary files
+~$*
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.sln.docstates
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini

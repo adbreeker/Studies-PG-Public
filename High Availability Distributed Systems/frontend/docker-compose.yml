@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    args:
+        VITE_SCRAPER_TIMEOUT_MS: 500
+    ports:
+      - "3000:80" # Map port 80 in the container to port 3000 on the host
+    environment:
+      - NODE_ENV=production
+      - TRAIN_SCRAPER_URL=http://host.docker.internal:8080
+      - ACCOUNT_MANAGER_URL=http://host.docker.internal:5220
+      - TRANSACTION_MANAGER_URL=http://host.docker.internal:5221

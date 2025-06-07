@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  train-scraper:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - selenium-firefox
+
+  selenium-firefox:
+    image: "selenium/standalone-firefox"
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm

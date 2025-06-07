@@ -1,0 +1,127 @@
+{
+    "scrapingId": "4fbcc2db-1794-4e46-81a8-0b8a0d0c717b",
+    "status": "COMPLETED",
+    "results": [
+        {
+            "id": 11,
+            "departureScheduled": "05:04",
+            "departureReal": null,
+            "arrivalScheduled": "08:45",
+            "arrivalReal": null,
+            "travelTime": "03h41'",
+            "price": "71,00",
+            "trainId": "83170",
+            "routeSections": [],
+            "carriers": [
+                "IC"
+            ],
+            "delayed": true
+        },
+        {
+            "id": 12,
+            "departureScheduled": "09:57",
+            "departureReal": null,
+            "arrivalScheduled": "13:00",
+            "arrivalReal": null,
+            "travelTime": "3h03",
+            "price": "71,00 zł",
+            "trainId": "51100",
+            "routeSections": [],
+            "carriers": [
+                "IC"
+            ],
+            "delayed": false
+        },
+        {
+            "id": 13,
+            "departureScheduled": "11:46",
+            "departureReal": null,
+            "arrivalScheduled": "14:30",
+            "arrivalReal": null,
+            "travelTime": "2h 44min",
+            "price": "169,00 PLN",
+            "trainId": "5100",
+            "routeSections": [],
+            "carriers": [
+                "EIP"
+            ],
+            "delayed": true
+        },
+        {
+            "id": 14,
+            "departureScheduled": "15:00",
+            "departureReal": null,
+            "arrivalScheduled": "18:00",
+            "arrivalReal": null,
+            "travelTime": "3h",
+            "price": "71,00 PLN",
+            "trainId": "5188",
+            "routeSections": [],
+            "carriers": [
+                "IC"
+            ],
+            "delayed": true
+        },
+        {
+            "id": 15,
+            "departureScheduled": "15:51",
+            "departureReal": null,
+            "arrivalScheduled": "18:30",
+            "arrivalReal": null,
+            "travelTime": "2h39",
+            "price": "169,00 zł",
+            "trainId": "5310",
+            "routeSections": [],
+            "carriers": [
+                "EIP"
+            ],
+            "delayed": false
+        },
+        {
+            "id": 16,
+            "departureScheduled": "17:46",
+            "departureReal": null,
+            "arrivalScheduled": "20:30",
+            "arrivalReal": null,
+            "travelTime": "02h44'",
+            "price": "169,00",
+            "trainId": "5102",
+            "routeSections": [],
+            "carriers": [
+                "EIP"
+            ],
+            "delayed": true
+        },
+        {
+            "id": 17,
+            "departureScheduled": "19:21",
+            "departureReal": null,
+            "arrivalScheduled": "22:35",
+            "arrivalReal": null,
+            "travelTime": "03h14'",
+            "price": "71,00",
+            "trainId": "53170",
+            "routeSections": [],
+            "carriers": [
+                "TLK"
+            ],
+            "delayed": true
+        },
+        {
+            "id": 18,
+            "departureScheduled": "19:28",
+            "departureReal": null,
+            "arrivalScheduled": "23:05",
+            "arrivalReal": null,
+            "travelTime": "03h37'",
+            "price": "71,00",
+            "trainId": "81150",
+            "routeSections": [],
+            "carriers": [
+                "IC"
+            ],
+            "delayed": true
+        }
+    ],
+    "reason": null
+}
