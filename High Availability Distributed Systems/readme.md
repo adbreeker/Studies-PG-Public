@@ -65,6 +65,7 @@ The system includes pre-scraped train data from Poland's major railway hubs:
 - **Port:** 5221
 - **Purpose:** Booking transactions, reservation processing
 - **Patterns:** SAGA orchestration, CQRS implementation
+- **Database:** PostgreSQL with Entity Framework
 
 ### Changes Manager Service
 - **Technology:** .NET Core
@@ -109,7 +110,7 @@ The system includes pre-scraped train data from Poland's major railway hubs:
    cd High Availability Distributed Systems
    ```
 
-2. **Start All Services**
+2. **Start All Services (Local)**
    ```bash
    docker-compose up -d
    ```
@@ -126,6 +127,25 @@ The system includes pre-scraped train data from Poland's major railway hubs:
    - **Transaction Manager API:** http://localhost:5221
    - **Changes Manager API:** http://localhost:5222
    - **Analytics Service API:** http://localhost:5223
+
+### Cluster Deployment (Docker Swarm)
+
+> **Note:** The cluster deployment configuration (`docker-compose-cluster.yml`) was specifically designed for the university department cluster environment and may not work in other environments without proper network and database setup.
+
+The cluster deployment uses pre-built Docker images and connects to an external PostgreSQL database:
+
+```bash
+# For cluster deployment (requires proper cluster environment)
+docker stack deploy -c docker-compose-cluster.yml train-booking-stack
+```
+
+**Cluster Access Points:**
+- **Main Application:** http://cluster-host:18942
+- **Train Scraper API:** http://cluster-host:18943
+- **Account Manager API:** http://cluster-host:18944
+- **Transaction Manager API:** http://cluster-host:18945
+- **Analytics Service API:** http://cluster-host:18946
+- **Changes Manager API:** http://cluster-host:18947
 
 ### Service Health Checks
 ```bash
@@ -167,24 +187,47 @@ docker-compose logs account-manager
 ## 🌐 Production Deployment
 
 ### Docker Swarm Cluster
-The project was successfully deployed on a university department cluster using Docker Swarm:
+The project was successfully deployed on a university department cluster using Docker Swarm with the `docker-compose-cluster.yml` configuration:
 
 - **High Availability:** Service replication across multiple nodes
-- **Load Balancing:** Automatic traffic distribution
+- **Load Balancing:** Automatic traffic distribution  
 - **Service Discovery:** Built-in container networking
 - **Rolling Updates:** Zero-downtime deployments
+- **External Database:** Shared PostgreSQL instance across cluster
+- **Overlay Networks:** Cross-node container communication
 
-### Cluster Configuration
+### Deployment Configurations
+
+#### Local Development (`docker-compose.yml`)
+- **Purpose:** Local testing and development
+- **Database:** Containerized PostgreSQL instance
+- **Ports:** Standard development ports (3000, 8080, 5220-5223)
+- **Networks:** Bridge networking for single-host deployment
+- **Build:** Services built from source code
+
+#### Cluster Production (`docker-compose-cluster.yml`)
+- **Purpose:** University cluster deployment with Docker Swarm
+- **Database:** External PostgreSQL database (`admin-postgres_db`)
+- **Ports:** Cluster-specific ports (18942-18947) 
+- **Networks:** Overlay networks for multi-host communication
+- **Images:** Pre-built Docker Hub images (`matowaty/train-scraper:*`)
+- **Note:** ⚠️ This configuration is tailored for the specific cluster environment and may require adjustments for other deployments
+
+### Cluster Deployment Commands
 ```bash
-# Initialize swarm mode
+# Initialize swarm mode (if not already done)
 docker swarm init
 
-# Deploy stack
-docker stack deploy -c docker-compose.yml train-booking
+# Deploy to cluster using cluster configuration
+docker stack deploy -c docker-compose-cluster.yml train-booking-stack
 
-# Scale services
-docker service scale train-booking_frontend=3
-docker service scale train-booking_transaction-manager=2
+# Scale services across cluster nodes
+docker service scale train-booking-stack_frontend=3
+docker service scale train-booking-stack_transaction-manager=2
+
+# Monitor cluster deployment
+docker stack services train-booking-stack
+docker service logs train-booking-stack_frontend
 ```
 
 ## 🔄 Advanced Features
@@ -326,5 +369,31 @@ This project demonstrates proficiency in:
 - **Clean Architecture:** Separation of concerns
 
 ---
+
+## 👥 Team Members & Contributions
+
+This project was developed collaboratively by a team of four developers:
+
+- **[@PawelManczak](https://github.com/PawelManczak)** - Train Scraper Service
+  - Java Spring Boot web scraping service
+  - Selenium-based train schedule data extraction
+  - Integration with Polish railway systems
+
+- **[@matowaty](https://github.com/matowaty)** - Analytics Service & Deployment
+  - .NET Core analytics and reporting service
+  - Docker Swarm cluster deployment and management
+  - Production environment setup and monitoring
+
+- **[@SzramStaR](https://github.com/SzramStaR)** - Changes Manager Service
+  - Real-time change notification system
+  - Event-driven communication implementation
+  - Schedule update and notification logic
+
+- **Project Owner** - Frontend, Transaction Manager & Account Manager
+  - React frontend application with real-time updates
+  - .NET Core transaction processing service (SAGA pattern)
+  - User authentication and account management service
+
+Each team member contributed to the overall architecture design and integration testing, demonstrating effective collaboration in distributed system development.
 
 **Note:** This project was developed as part of a High Availability Distributed Systems course, demonstrating practical implementation of enterprise-grade distributed system patterns in a real-world scenario. The system was successfully deployed and tested on a university cluster environment using Docker Swarm.
