@@ -22,7 +22,6 @@ This repository contains practical implementations and exercises exploring advan
 - **Pandas:** Data analysis and manipulation
 - **C++ Compiler:** For Paradiseo framework (Lab 6)
 - **CMake:** Build system for C++ projects
-- **Jupyter Notebook:** For interactive development
 
 ### Knowledge Requirements
 - Understanding of optimization theory and metaheuristics
@@ -33,15 +32,16 @@ This repository contains practical implementations and exercises exploring advan
 
 ## 🧪 Labs Overview
 
-### Lab 1: Optimization Fundamentals & Excel Analysis
-**Objective:** Introduction to optimization concepts and basic analysis
-- Manual optimization problem solving using Excel
-- Understanding objective functions and constraints
-- Graphical analysis of optimization landscapes
-- Trade-off analysis and sensitivity studies
+### Lab 1: Multi-Criteria Decision Making (MCDM) in Excel
+**Objective:** Introduction to decision-making methods for multi-criteria problems
+- Smartphone selection using multiple decision criteria
+- Simple Additive Weighting (SAW) method implementation
+- Analytic Hierarchy Process (AHP) for weight determination
+- TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution)
+- Comparative analysis of MCDM methods
 
-**Key Tools:** Microsoft Excel, mathematical modeling
-**Key Concepts:** Objective functions, constraints, feasible regions, trade-offs
+**Key Tools:** Microsoft Excel, MCDM methodologies
+**Key Concepts:** SAW, AHP, TOPSIS, criteria weighting, decision matrices
 
 ### Lab 2: Single-Objective Optimization with Genetic Algorithms
 **Objective:** Implementation of genetic algorithms for single-objective problems
@@ -140,9 +140,22 @@ public:
 pip install pymoo numpy matplotlib pandas scipy seaborn topsispy
 
 # For Lab 6 (C++ implementation)
-# Install CMake and a C++ compiler (Visual Studio Build Tools on Windows)
-# Install Paradiseo framework from repository https://github.com/nojhan/paradiseo
-# Follow repository-specific installation instructions for your platform
+# For Linux/Ubuntu systems - Detailed Paradiseo Installation:
+# 1. Download the newest ParadisEO release
+# Go to https://github.com/nojhan/paradiseo/releases
+# Download the latest *.zip or *.tar file to Downloads folder
+# Extract the archive to a suitable location
+
+# 2. Install g++ and additional dependencies
+# Use g++ version 13 instead of version 8 for recent Ubuntu-like distributions
+sudo apt install g++-13 cmake make libeigen3-dev libopenmpi-dev doxygen graphviz libgnuplot-iostream-dev
+
+# 3. Build ParadisEO libraries
+# Navigate to the main ParadisEO folder first!
+cd /path/to/paradiseo-folder
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=Release -DEDO=ON .. && make -j
 ```
 
 ### Running Individual Labs
@@ -163,9 +176,8 @@ python MOOA4-MOEAD.py
 
 # Lab 6: C++ implementation
 cd "Lab6"
-mkdir build
-cd build
-cmake ..
+# Adjust CMakeLists to match your ParadisEO installation
+cmake ./
 make
 ./optimization_executable
 cd ..
