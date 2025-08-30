@@ -251,6 +251,8 @@ docker service logs train-booking-stack_frontend
 
 ### Local Development
 ```bash
+# Create local postgress database
+docker run --name localtest-postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=adminpass -e POSTGRES_DB=mydb -p 5432:5432 -v localtest-postgres:/var/lib/postgresql/data -d postgres
 # Start infrastructure services only
 docker-compose up postgres selenium-firefox
 
