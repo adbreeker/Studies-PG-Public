@@ -168,7 +168,7 @@ This repository contains coursework from my ongoing Master's studies in Computer
 ## 📊 Current Progress Statistics
 
 - **Semester**: 1 (Summer Semester 2025)
-- **Courses Completed**: 6 courses
+- **Courses Completed**: over 6 courses
 - **Total Labs/Modules**: 25+ individual implementations
 - **Lines of Code**: 10,000+ across all projects
 - **Technologies Explored**: 20+ different technologies and frameworks
