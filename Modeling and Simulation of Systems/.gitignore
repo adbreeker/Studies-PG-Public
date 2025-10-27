@@ -1,2 +1,5 @@
 .venv/
 Tasks/
+TempSolutions/
+__pycache__/
+.vscode/
