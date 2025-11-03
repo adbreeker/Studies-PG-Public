@@ -15,6 +15,7 @@ OPTIMIZED_SRC = Cuda_Optimized.cu
 UNOPTIMIZED_BIN = cuda_unoptimized
 OPTIMIZED_BIN = cuda_optimized
 
+# Phony targets
 .PHONY: all unoptimized optimized both run-unoptimized run-optimized compare clean
 
 # Default target
