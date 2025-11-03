@@ -1,19 +1,19 @@
-# Makefile for CUDA Matrix Multiplication Comparison
+# Makefile for OpenMP Matrix Multiplication Comparison
 
-# Flags and config
-NVCC = nvcc
-NVCC_FLAGS = -O3
+CC = g++
+CFLAGS = -O3 -fopenmp -Wall
+LIBS = -lm
 M ?= 1024
 N ?= 1024
 K ?= 1024
 
-# Source files
-UNOPTIMIZED_SRC = Cuda_Unoptimized.cu
-OPTIMIZED_SRC = Cuda_Optimized.cu
-
 # Target binaries
-UNOPTIMIZED_BIN = cuda_unoptimized
-OPTIMIZED_BIN = cuda_optimized
+UNOPTIMIZED_SRC = OpenMP_Unoptimized.cpp
+OPTIMIZED_SRC = OpenMP_Optimized.cpp
+
+# Source files
+UNOPTIMIZED_BIN = openmp_unoptimized
+OPTIMIZED_BIN = openmp_optimized
 
 .PHONY: all unoptimized optimized both run-unoptimized run-optimized compare clean
 
@@ -30,13 +30,11 @@ all:
 
 # Compile unoptimized version
 unoptimized: $(UNOPTIMIZED_SRC)
-	@echo "Compiling unoptimized version..."
-	$(NVCC) $(NVCC_FLAGS) -o $(UNOPTIMIZED_BIN) $(UNOPTIMIZED_SRC)
+	$(CC) $(CFLAGS) -o $(UNOPTIMIZED_BIN) $(UNOPTIMIZED_SRC) $(LIBS)
 
 # Compile optimized version
 optimized: $(OPTIMIZED_SRC)
-	@echo "Compiling optimized version..."
-	$(NVCC) $(NVCC_FLAGS) -o $(OPTIMIZED_BIN) $(OPTIMIZED_SRC)
+	$(CC) $(CFLAGS) -o $(OPTIMIZED_BIN) $(OPTIMIZED_SRC) $(LIBS)
 
 # Compile both
 both: unoptimized optimized
@@ -59,13 +57,12 @@ run-both: both
 	@./$(OPTIMIZED_BIN) $(M) $(N) $(K)
 
 # Compare both implementations
-compare: all
+compare: both
 	@chmod +x run_and_compare.sh
-	./run_and_compare.sh $(M) $(N) $(K)
+	@./run_and_compare.sh $(M) $(N) $(K)
 
 # Clean up
 clean:
 	rm -f $(UNOPTIMIZED_BIN) $(OPTIMIZED_BIN)
-	rm -f cuda_result_unoptimized.txt cuda_result_optimized.txt
-
+	rm -f openmp_result_unoptimized.txt openmp_result_optimized.txt
 
