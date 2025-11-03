@@ -1,5 +1,6 @@
 # Makefile for OpenMP Matrix Multiplication Comparison
 
+# Flags and config
 CC = g++
 CFLAGS = -O3 -fopenmp -Wall
 LIBS = -lm
@@ -15,6 +16,7 @@ OPTIMIZED_SRC = OpenMP_Optimized.cpp
 UNOPTIMIZED_BIN = openmp_unoptimized
 OPTIMIZED_BIN = openmp_optimized
 
+# Phony targets
 .PHONY: all unoptimized optimized both run-unoptimized run-optimized compare clean
 
 # Default target
