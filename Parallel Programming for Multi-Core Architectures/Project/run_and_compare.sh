@@ -44,30 +44,28 @@ CUDA_OPT_TOTAL_TIME=$(echo "$CUDA_OPT_OUTPUT" | grep "Total time:" | awk '{print
 echo "Comparing Results..."
 
 # Check if result files exist
-if [ ! -f "OpenMP/openmp_result_unoptimized.txt" ]; then
+if [ ! -f "openmp_result_unoptimized.txt" ]; then
     echo -e "${RED}✗ ERROR: openmp_result_unoptimized.txt not found${NC}"
     exit 1
 fi
 
-if [ ! -f "OpenMP/openmp_result_optimized.txt" ]; then
+if [ ! -f "openmp_result_optimized.txt" ]; then
     echo -e "${RED}✗ ERROR: openmp_result_optimized.txt not found${NC}"
     exit 1
 fi
 
-if [ ! -f "CUDA/cuda_result_unoptimized.txt" ]; then
+if [ ! -f "cuda_result_unoptimized.txt" ]; then
     echo -e "${RED}✗ ERROR: cuda_result_unoptimized.txt not found${NC}"
     exit 1
 fi
 
-if [ ! -f "CUDA/cuda_result_optimized.txt" ]; then
+if [ ! -f "cuda_result_optimized.txt" ]; then
     echo -e "${RED}✗ ERROR: cuda_result_optimized.txt not found${NC}"
     exit 1
 fi
 
 # Compare result files
-if cmp -s "OpenMP/openmp_result_unoptimized.txt" "OpenMP/openmp_result_optimized.txt"
-&& cmp -s "CUDA/cuda_result_unoptimized.txt" "CUDA/cuda_result_optimized.txt"
-&& cmp -s "OpenMP/openmp_result_optimized.txt" "CUDA/cuda_result_optimized.txt"; then
+if cmp -s "openmp_result_unoptimized.txt" "openmp_result_optimized.txt" && cmp -s "cuda_result_unoptimized.txt" "cuda_result_optimized.txt" && cmp -s "openmp_result_optimized.txt" "cuda_result_optimized.txt"; then
     echo -e "${GREEN}✓ Results are IDENTICAL${NC}"
 
     # Calculate speedups and print performance
@@ -102,5 +100,10 @@ else
     echo -e "${RED}⚠ Results are DIFFERENT${NC}"
     exit 1
 fi
+
+rm -f openmp_result_unoptimized.txt
+rm -f openmp_result_optimized.txt
+rm -f cuda_result_unoptimized.txt
+rm -f cuda_result_optimized.txt
 
 echo "=========================================="

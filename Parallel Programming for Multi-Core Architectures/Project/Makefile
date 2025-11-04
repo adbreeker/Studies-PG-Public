@@ -31,7 +31,7 @@ run: compile
 	@$(MAKE) -C CUDA run-both M=$(M) N=$(N) K=$(K)
 
 # Compare both implementations
-compare: both
+compare: compile
 	@chmod +x run_and_compare.sh
 	@./run_and_compare.sh $(M) $(N) $(K)
 
