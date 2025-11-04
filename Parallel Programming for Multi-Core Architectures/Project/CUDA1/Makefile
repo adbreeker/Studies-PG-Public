@@ -60,7 +60,7 @@ run-both: both
 	@./$(OPTIMIZED_BIN) $(M) $(N) $(K)
 
 # Compare both implementations
-compare: all
+compare: both
 	@chmod +x run_and_compare.sh
 	./run_and_compare.sh $(M) $(N) $(K)
 
