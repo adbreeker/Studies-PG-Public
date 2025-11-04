@@ -8,8 +8,8 @@ N ?= 1024
 K ?= 1024
 
 # Source files
-UNOPTIMIZED_SRC = Cuda_Unoptimized.cu
-OPTIMIZED_SRC = Cuda_Optimized.cu
+UNOPTIMIZED_SRC = CUDA_Unoptimized.cu
+OPTIMIZED_SRC = CUDA_Optimized.cu
 
 # Target binaries
 UNOPTIMIZED_BIN = cuda_unoptimized
