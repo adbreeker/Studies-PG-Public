@@ -5,21 +5,57 @@
 
 #define TILE_SIZE 16
 
-//matrix multiplication on gpu function
+//matrix multiplication on gpu function - optimized
 __global__ void matrixMultiply(float *A, float *B, float *C, int M, int N, int K) 
 {
-    int row = blockIdx.y * blockDim.y + threadIdx.y;
-    int col = blockIdx.x * blockDim.x + threadIdx.x;
+    // Shared memory for tiles
+    __shared__ float As[TILE_SIZE][TILE_SIZE];
+    __shared__ float Bs[TILE_SIZE][TILE_SIZE];
     
-    if (row < M && col < K) 
+    int row = blockIdx.y * TILE_SIZE + threadIdx.y;
+    int col = blockIdx.x * TILE_SIZE + threadIdx.x;
+    
+    float sum = 0.0f;
+    
+    // Loop over tiles
+    for (int t = 0; t < (N + TILE_SIZE - 1) / TILE_SIZE; t++) 
     {
-        float sum = 0.0f;
-        
-        for (int i = 0; i < N; i++) 
+        // Load tile from A into shared memory
+        if (row < M && (t * TILE_SIZE + threadIdx.x) < N) 
         {
-            sum += A[row * N + i] * B[i * K + col];
+            As[threadIdx.y][threadIdx.x] = A[row * N + t * TILE_SIZE + threadIdx.x];
+        } 
+        else 
+        {
+            As[threadIdx.y][threadIdx.x] = 0.0f;
         }
         
+        // Load tile from B into shared memory
+        if ((t * TILE_SIZE + threadIdx.y) < N && col < K) 
+        {
+            Bs[threadIdx.y][threadIdx.x] = B[(t * TILE_SIZE + threadIdx.y) * K + col];
+        } 
+        else 
+        {
+            Bs[threadIdx.y][threadIdx.x] = 0.0f;
+        }
+        
+        // Synchronize to ensure tiles are loaded
+        __syncthreads();
+        
+        // Compute partial dot product using shared memory
+        for (int k = 0; k < TILE_SIZE; k++) 
+        {
+            sum += As[threadIdx.y][k] * Bs[k][threadIdx.x];
+        }
+        
+        // Synchronize before loading next tile
+        __syncthreads();
+    }
+    
+    // Write result
+    if (row < M && col < K) 
+    {
         C[row * K + col] = sum;
     }
 }

@@ -3,7 +3,7 @@
 #include <cuda_runtime.h>
 #include <time.h>
 
-//matrix multiplication on gpu function
+//matrix multiplication on gpu function - unoptimized
 __global__ void matrixMultiply(float *A, float *B, float *C, int M, int N, int K) 
 {
     
