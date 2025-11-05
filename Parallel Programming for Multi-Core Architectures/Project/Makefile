@@ -39,4 +39,5 @@ compare: compile
 clean:
 	@$(MAKE) -C OpenMP clean
 	@$(MAKE) -C CUDA clean
+	@rm -f openmp_result_*.txt cuda_result_*.txt
 
