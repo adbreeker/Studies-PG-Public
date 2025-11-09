@@ -7,21 +7,22 @@
 void matrixMultiply(float *A, float *B, float *C, int M, int N, int K) 
 {
     int max_num_threads = omp_get_max_threads();
-    omp_set_num_threads(1);
+    omp_set_num_threads(max_num_threads);
     #pragma omp parallel
     {
         #pragma omp single
         printf("Threads: %d / %d\n",omp_get_num_threads(), max_num_threads);
     }
-
-    #pragma omp parallel for collapse(2)
+    
+    #pragma omp parallel for collapse(2) schedule(dynamic)
     for(int row = 0; row < M; row++)
     {
         for(int col = 0; col < K; col++)
         {
             float sum = 0.0f;
             
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < N; i++) 
+            {
                 sum += A[row * N + i] * B[i * K + col];
             }
             
@@ -100,7 +101,7 @@ int main(int argc, char **argv)
     //start computation time count
     double startTimeComp = omp_get_wtime();
     
-    //running multiplication on cpu - just one thread, no tiling
+    //running multiplication on cpu - multiple threads adjusted to maximize performance
     matrixMultiply(A, B, C, M, N, K);
     
     //stop computation time count

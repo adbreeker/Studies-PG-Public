@@ -3,22 +3,24 @@
 #include <cuda_runtime.h>
 #include <time.h>
 
+#define TILE_SIZE 16
+
 //matrix multiplication on gpu function - unoptimized
 __global__ void matrixMultiply(float *A, float *B, float *C, int M, int N, int K) 
 {
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
     
-    for(int row = 0; row < M; row++)
+    if (row < M && col < K) 
     {
-        for(int col = 0; col < K; col++)
+        float sum = 0.0f;
+        
+        for (int i = 0; i < N; i++) 
         {
-            float sum = 0.0f;
-            
-            for (int i = 0; i < N; i++) {
-                sum += A[row * N + i] * B[i * K + col];
-            }
-            
-            C[row * K + col] = sum;
+            sum += A[row * N + i] * B[i * K + col];
         }
+        
+        C[row * K + col] = sum;
     }
 }
 
@@ -57,8 +59,8 @@ void saveToFile(float *matrix, int rows, int cols, const char *filename)
 int main(int argc, char **argv) 
 {
     // Matrix dimensions: A(M x N) * B(N x K) = C(M x K)
-    int M = 1024;  
-    int N = 1024;  
+    int M = 1024;
+    int N = 1024;
     int K = 1024;
     
     //cmd override
@@ -98,6 +100,11 @@ int main(int argc, char **argv)
     //copy data to gpu
     cudaMemcpy(d_A, h_A, size_A, cudaMemcpyHostToDevice);
     cudaMemcpy(d_B, h_B, size_B, cudaMemcpyHostToDevice);
+    
+    //configure kernel launch parameters
+    dim3 threadsPerBlock(TILE_SIZE, TILE_SIZE);
+    dim3 numBlocks((K + TILE_SIZE - 1) / TILE_SIZE, (M + TILE_SIZE - 1) / TILE_SIZE);
+    printf("Grid size: (%d, %d), Block size: (%d, %d)\n", numBlocks.x, numBlocks.y, threadsPerBlock.x, threadsPerBlock.y);
 
     //start gpu time count
     cudaEvent_t startTimeGPU, stopTimeGPU;
@@ -105,14 +112,14 @@ int main(int argc, char **argv)
     cudaEventCreate(&stopTimeGPU);
     cudaEventRecord(startTimeGPU);
 
-    //running multiplication on gpu - just one thread
-    matrixMultiply<<<1, 1>>>(d_A, d_B, d_C, M, N, K);
+    //running multiplication on gpu - multiple threads adjusted to maximize performance
+    matrixMultiply<<<numBlocks, threadsPerBlock>>>(d_A, d_B, d_C, M, N, K);
     cudaDeviceSynchronize();
 
     //stop gpu time count
     cudaEventRecord(stopTimeGPU);
     cudaEventSynchronize(stopTimeGPU);
-
+    
     //copy result to cpu
     cudaMemcpy(h_C, d_C, size_C, cudaMemcpyDeviceToHost);
 
