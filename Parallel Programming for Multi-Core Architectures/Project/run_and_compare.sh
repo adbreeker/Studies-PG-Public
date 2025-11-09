@@ -57,9 +57,7 @@ else
 fi
 
 echo ""
-rm -f openmp_result_unoptimized.txt
 rm -f openmp_result_optimized.txt
-rm -f cuda_result_unoptimized.txt
 rm -f cuda_result_optimized.txt
 
 echo "=========================================="
