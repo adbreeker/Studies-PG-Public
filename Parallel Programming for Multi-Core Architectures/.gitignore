@@ -1,5 +1,7 @@
+cuda_singlethread
 cuda_optimized
 cuda_unoptimized
+openmp_singlethread
 openmp_optimized
 openmp_unoptimized
 *.txt
