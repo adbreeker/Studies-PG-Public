@@ -1,0 +1,15 @@
+# Ignore everything
+*
+
+# Allow directories (needed to traverse subdirectories)
+!*/
+
+# Allow .cu files
+!*.cu
+
+# Allow Makefiles
+!Makefile
+!makefile
+
+# Allow .gitignore itself
+!.gitignore
