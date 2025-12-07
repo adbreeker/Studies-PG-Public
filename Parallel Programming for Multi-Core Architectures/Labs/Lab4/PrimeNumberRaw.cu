@@ -13,25 +13,25 @@ __host__ void errorexit(const char *s)
     exit(EXIT_FAILURE);	 	
 }
 
-__global__ void isPrime(unsigned long long int numberSquare, bool *result) 
+__global__ void isPrime(unsigned long long int number, unsigned long long int numberSquare, bool *result) 
 {
     unsigned long long int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if (idx <= numberSquare && idx > 1) 
     {
-        if (numberSquare % idx == 0) 
+        if (number % idx == 0) 
         {
             *result = false;
-            printf("Divisor found: %lld\n", idx);
+            printf("Divisor found: %llu\n", idx);
         }
     }
 }
 
 int main(int argc,char **argv) 
 {
-    unsigned long long int N = argc > 1 ? atoll(argv[1]) : 8188455811;
+    unsigned long long int N = argc > 1 ? strtoull(argv[1], NULL, 10) : 8188455811;
 
     int threadsinblock = 1024;
-    int blocksingrid = (sqrtf(N) + threadsinblock - 1) / threadsinblock;
+    int blocksingrid = (sqrt(N) + threadsinblock - 1) / threadsinblock;
     
  	cudaEvent_t start, stop;
     float milliseconds = 0;
@@ -49,7 +49,7 @@ int main(int argc,char **argv)
 
     cudaMemcpy(isPrimeDevice, &isPrimeHost, sizeof(bool), cudaMemcpyHostToDevice);
 
-    isPrime<<<blocksingrid, threadsinblock>>>(sqrtf(N), isPrimeDevice);
+    isPrime<<<blocksingrid, threadsinblock>>>(N, sqrt(N), isPrimeDevice);
     cudaDeviceSynchronize();
 
     cudaMemcpy(&isPrimeHost, isPrimeDevice, sizeof(bool), cudaMemcpyDeviceToHost);
