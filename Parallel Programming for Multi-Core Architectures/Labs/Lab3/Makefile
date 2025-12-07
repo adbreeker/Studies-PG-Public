@@ -12,32 +12,36 @@ NVCC_FLAGS = -arch=native
 NVCC_CDP_FLAGS = -arch=native -rdc=true -lcudadevrt
 N ?= 1000
 
-QUICKSORT_SRC = Quicksort.cu
-QUICKSORT_BIN = Quicksort
+QUICKSORT_CUDA_SRC = QuicksortCUDA.cu
+QUICKSORT_CUDA_BIN = QuicksortCUDA
+QUICKSORT_BASIC_SRC = QuicksortBasic.cpp
+QUICKSORT_BASIC_BIN = QuicksortBasic
 
 .PHONY: help compile run compare clean
 
 # Default target
 help:
 	@echo "Available targets:"
-	@echo "  make compile  - Compile dynamic parallelism Quicksort program"
+	@echo "  make compile  - Compile both Quicksort programs"
 	@echo "  make run      - Run dynamic parallelism Quicksort program (N=$(N))"
-	@echo "  make compare  - Compare all solutions of Even Odd counting alhorithms from directory ./EvenOdd_SolutionsForComparison/"
+	@echo "  make compare-evenodd  - Compare all solutions of Even Odd counting alhorithms from directory ./EvenOdd_SolutionsForComparison/"
+	@echo "  make compare-quicksort - Compare Quicksort implementations"
 	@echo "  make clean    - Remove all compiled binaries"
 
 # Compile dynamic parallelism Quicksort program
 compile:
-	$(NVCC) $(NVCC_FLAGS) $(QUICKSORT_SRC) -o $(QUICKSORT_BIN)
-	@echo "Quicksort program compiled"
+	$(NVCC) $(NVCC_CDP_FLAGS) $(QUICKSORT_CUDA_SRC) -o $(QUICKSORT_CUDA_BIN)
+	g++ $(QUICKSORT_BASIC_SRC) -o $(QUICKSORT_BASIC_BIN)
+	@echo "Quicksort programs compiled"
 
 # Run dynamic parallelism Quicksort program
 run: compile
 	@echo "=========================================="
-	@echo "Running Quicksort Program (N=$(N)):"
-	./$(QUICKSORT_BIN) $(N)
+	@echo "Running Quicksort CUDA Program (N=$(N)):"
+	@./$(QUICKSORT_CUDA_BIN) $(N)
 
 # Compare execution times and results of Even Odd counting algorithms
-compare:
+compare-evenodd:
 	@echo "=========================================="
 	@echo "Compiling EvenOdd Solutions (N=$(N))..."
 	@for file in EvenOdd_SolutionsForComparison/*.cu; do \
@@ -83,9 +87,42 @@ compare:
 	done | sort; \
 	echo "";'
 
+# Compare Quicksort programs
+compare-quicksort: compile
+	@echo ""
+	@echo "=========================================="
+	@echo "Comparison (N=$(N))"
+	@echo "Running Basic Quicksort..."
+	@BASIC_OUTPUT=$$(./$(QUICKSORT_BASIC_BIN) $(N) 2>&1); \
+	BASIC_TIME=$$(echo "$$BASIC_OUTPUT" | grep "Kernel execution time:" | awk '{print $$4}'); \
+	BASIC_SORTED=$$(echo "$$BASIC_OUTPUT" | grep "Quicksort result:" | awk '{print $$3}'); \
+	echo "Running CUDA Quicksort..."; \
+	CUDA_OUTPUT=$$(./$(QUICKSORT_CUDA_BIN) $(N) 2>&1); \
+	CUDA_TIME=$$(echo "$$CUDA_OUTPUT" | grep "Kernel execution time:" | awk '{print $$4}'); \
+	CUDA_SORTED=$$(echo "$$CUDA_OUTPUT" | grep "Quicksort result:" | awk '{print $$3}'); \
+	echo ""; \
+	if [ "$$BASIC_SORTED" = "$$CUDA_SORTED" ]; then \
+		printf "$(BLUE)Sorting Status: %s$(NC)\n" "$$BASIC_SORTED"; \
+	else \
+		printf "$(YELLOW)Basic: %s$(NC)\n" "$$BASIC_SORTED"; \
+		printf "$(YELLOW)CUDA:  %s$(NC)\n" "$$CUDA_SORTED"; \
+	fi; \
+	echo ""; \
+	if [ -n "$$BASIC_TIME" ] && [ -n "$$CUDA_TIME" ]; then \
+		echo "Execution Time:"; \
+		if [ "$$(echo "$$BASIC_TIME < $$CUDA_TIME" | bc)" -eq 1 ]; then \
+			printf "	Basic: $(GREEN)%s ms$(NC)\n" "$$BASIC_TIME"; \
+			printf "	CUDA:  $(RED)%s ms$(NC)\n" "$$CUDA_TIME"; \
+		else \
+			printf "	Basic: $(RED)%s ms$(NC)\n" "$$BASIC_TIME"; \
+			printf "	CUDA:  $(GREEN)%s ms$(NC)\n" "$$CUDA_TIME"; \
+		fi; \
+	fi; \
+	echo "";
+
 # Clean compiled binaries
 clean:
 	@echo "Cleaning up..."
-	rm -f $(QUICKSORT_BIN)
+	rm -f $(QUICKSORT_CUDA_BIN) $(QUICKSORT_BASIC_BIN)
 	find EvenOdd_SolutionsForComparison -type f ! -name "*.cu" -delete;
 	@echo "Clean complete!"
