@@ -2,7 +2,7 @@
 
 ## Section 1. How does biological information propagate?
 
-Biological information flows in a specific direction: **DNA** $\rightarrow$ **RNA** $\rightarrow$ **protein**. This flow is often referred to as the central dogma of molecular biology. **DNA** acts as the long-term storage of genetic information, organized into functional units called **genes**. During a process called **transcription**, the information in a gene is copied into a molecule of **mRNA** (messenger RNA). This mRNA then travels to the ribosome, where **translation** occurs. In this step, the ribosome reads the mRNA sequence in groups of three nucleotides known as **codons**. Each codon corresponds to a specific amino acid, which are linked together to form a functional **protein**.
+Biological information flows in a specific direction: **DNA** → **RNA** → **protein**. This flow is often referred to as the central dogma of molecular biology. **DNA** acts as the long-term storage of genetic information, organized into functional units called **genes**. During a process called **transcription**, the information in a gene is copied into a molecule of **mRNA** (messenger RNA). This mRNA then travels to the ribosome, where **translation** occurs. In this step, the ribosome reads the mRNA sequence in groups of three nucleotides known as **codons**. Each codon corresponds to a specific amino acid, which are linked together to form a functional **protein**.
 
 *(AI usage: I used AI to help refine the explanation to ensure all required terms were included naturally and the flow was logical and concise.)*
 
@@ -16,7 +16,7 @@ Biological information flows in a specific direction: **DNA** $\rightarrow$ **RN
 *   **Transcription**: The process of copying a segment of DNA into RNA. It's analogous to reading a file from disk into memory (and converting the format slightly).
 *   **Translation**: The process of decoding mRNA to build a protein. This is the execution phase where the genetic code is interpreted to produce a functional product.
 *   **FASTA**: A simple text-based file format for storing nucleotide or protein sequences. It begins with a greater-than symbol (`>`) followed by a description line, and then the sequence data on subsequent lines.
-*   **Reverse complement**: The sequence formed by reversing a DNA string and swapping each character with its pair (A $\leftrightarrow$ T, C $\leftrightarrow$ G). This is necessary because DNA is double-stranded and runs in opposite directions.
+*   **Reverse complement**: The sequence formed by reversing a DNA string and swapping each character with its pair (A ↔ T, C ↔ G). This is necessary because DNA is double-stranded and runs in opposite directions.
 
 *(AI usage: I drafted the definitions and asked AI to refine them to be "computer scientist friendly" analogies.)*
 
@@ -111,6 +111,7 @@ def TranslateRNA2Protein(data):
         result.append(protein)
     return "".join(result)
 ```
+**The entire code can be found on my [repository](https://github.com/adbreeker/Studies-PG-Public/tree/main/Elements%20of%20Bioinformatics)**
 
 ### Sample Output
 
