@@ -24,17 +24,19 @@ def plot_nucleotide_counts(counts):
     plt.title('Nucleotide Composition')
     plt.xlabel('Nucleotide')
     plt.ylabel('Count')
-    plt.savefig('nucleotide_counts.png')
-    print("Plot saved as nucleotide_counts.png")
+    
+    # Ensure the Images directory exists
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    images_dir = os.path.join(script_dir, 'Images')
+    os.makedirs(images_dir, exist_ok=True)
+    
+    plt.savefig(os.path.join(images_dir, 'nucleotide_counts.png'))
+    print("Plot saved as Images/nucleotide_counts.png")
 
 def main():
-    input_file = os.path.join("Inputs", "rosalind_dna.txt")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    input_file = os.path.join(script_dir, "Inputs", "rosalind_dna.txt")
     
-    # Ensure we are in the correct directory or handle path correctly
-    if not os.path.exists(input_file):
-        # Fallback for running from root workspace
-        input_file = os.path.join("Lab1", "Inputs", "rosalind_dna.txt")
-        
     print(f"Reading DNA from {input_file}...")
     try:
         dna = read_dna(input_file)

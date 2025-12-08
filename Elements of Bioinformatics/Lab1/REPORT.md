@@ -131,7 +131,7 @@ Plot saved as nucleotide_counts.png
 
 I generated a bar chart showing the distribution of nucleotides in the input sequence.
 
-![Nucleotide Composition](nucleotide_counts.png)
+![Nucleotide Composition](Images/nucleotide_counts.png)
 
 ### Summary
 
