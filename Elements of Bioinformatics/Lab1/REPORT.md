@@ -16,7 +16,7 @@ Biological information flows in a specific direction: **DNA** $\rightarrow$ **RN
 *   **Transcription**: The process of copying a segment of DNA into RNA. It's analogous to reading a file from disk into memory (and converting the format slightly).
 *   **Translation**: The process of decoding mRNA to build a protein. This is the execution phase where the genetic code is interpreted to produce a functional product.
 *   **FASTA**: A simple text-based file format for storing nucleotide or protein sequences. It begins with a greater-than symbol (`>`) followed by a description line, and then the sequence data on subsequent lines.
-*   **Reverse complement**: The sequence formed by reversing a DNA string and swapping each character with its pair (A$\leftrightarrow$T, C$\leftrightarrow$G). This is necessary because DNA is double-stranded and runs in opposite directions.
+*   **Reverse complement**: The sequence formed by reversing a DNA string and swapping each character with its pair (A $\leftrightarrow$ T, C $\leftrightarrow$ G). This is necessary because DNA is double-stranded and runs in opposite directions.
 
 *(AI usage: I drafted the definitions and asked AI to refine them to be "computer scientist friendly" analogies.)*
 
@@ -68,6 +68,50 @@ def main():
     plot_nucleotide_counts(counts)
 ```
 
+### Imported Functions
+
+Here are the implementations of the bioinformatics functions imported from previous problems:
+
+**CountNucleotides (from problem1.py)**
+```python
+def CountNucleotides(seq):
+    counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+    for nucleotide in seq:
+        if nucleotide in counts:
+            counts[nucleotide] += 1
+    return counts
+```
+
+**TranscribeDNA2RNA (from problem2.py)**
+```python
+def TranscribeDNA2RNA(data):
+    rna = data.replace('T', 'U')
+    return rna
+```
+
+**ComputeGCContent (from problem7.py)**
+```python
+def ComputeGCContent(seq):
+    counts = CountNucleotides(seq)  # returns [A, C, G, T]
+    total = sum(counts.values())
+    gc_count = counts['C'] + counts['G']
+    percent = 100.0 * gc_count / total
+    return percent
+```
+
+**TranslateRNA2Protein (from problem6.py)**
+```python
+def TranslateRNA2Protein(data):
+    result = []
+    for i in range(0, len(data), 3):
+        codon = data[i:i+3]
+        protein = codon_table.get(codon, "")
+        if protein == "Stop":
+            break
+        result.append(protein)
+    return "".join(result)
+```
+
 ### Sample Output
 
 Running the script on `rosalind_dna.txt` produced the following output:
@@ -92,4 +136,4 @@ I generated a bar chart showing the distribution of nucleotides in the input seq
 
 In this experiment, I processed a DNA sequence to extract biological insights. I calculated the nucleotide counts, finding them to be relatively balanced (A: 218, C: 208, G: 215, T: 215), which resulted in a GC content of approximately 49.42%. The transcription step successfully converted the DNA string to mRNA by replacing Thymine with Uracil. Finally, the translation logic correctly identified the start codon 'AUG' and translated the subsequent sequence into a peptide chain starting with Methionine (M), demonstrating the core steps of the central dogma in silico.
 
-*(AI usage: I used AI to generate the Python script structure and the matplotlib plotting code. I also used AI to refactor the code to import existing functions from `problem1.py` through `problem7.py`, and to help summarize the results.)*
+*(AI usage: I used AI to merge my previous functions from `problem1.py` through `problem7.py` into whole experiment, and to help summarize the results.)*
