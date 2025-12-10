@@ -58,7 +58,9 @@ int main(int argc,char **argv)
     cudaEvent_t start, stop;
     float milliseconds = 0;
 
-	int *randomNumbers = (int *)malloc(N * sizeof(int));
+    //pinned memory - enables benefits from async memcpy
+	int *randomNumbers;
+    cudaMallocHost((void **)&randomNumbers, N * sizeof(int));
     if (randomNumbers == NULL) 
     {
         printf("Memory allocation failed.\n");
@@ -69,10 +71,7 @@ int main(int argc,char **argv)
 
     int *randomNumbersDevice;
     int *histogramDevice;
-    int *histogramHost;
-
-    //malloc on host for async transfers
-    cudaMallocHost((void **)&histogramHost, (B - A + 1) * sizeof(int));
+    int *histogramHost = (int *)malloc((B - A + 1) * sizeof(int));
 
     //create CUDA streams
     cudaStream_t streams[NUM_STREAMS];
@@ -127,8 +126,8 @@ int main(int argc,char **argv)
     printf("Histogram: %s | Sum: %d\n", hisogramResult.c_str(), histogramSum);
     printf("Kernel execution time: %.3f ms\n", milliseconds);
 
-    free(randomNumbers);
-    cudaFreeHost(histogramHost);
+    cudaFreeHost(randomNumbers);  
+    free(histogramHost);          
     cudaFree(randomNumbersDevice);
     cudaFree(histogramDevice);
 
