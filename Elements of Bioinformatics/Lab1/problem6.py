@@ -1,7 +1,7 @@
 #Translating RNA into Protein
 import os
 
-test_data = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA"
+test_data = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGG"#UGA"
 
 codon_table = {
     "UUU": "F", "UUC": "F", "UUA": "L", "UUG": "L",

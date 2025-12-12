@@ -1,6 +1,6 @@
 #Compute GC Content
 import os
-from problem1 import CountNucleotides
+from Lab1.problem1 import CountNucleotides
 
 test_data = """>Rosalind_6404
 CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCC
