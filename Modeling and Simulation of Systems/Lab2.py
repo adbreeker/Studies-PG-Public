@@ -134,6 +134,7 @@ def plot_results(results, trajectories, title):
     ax.legend()
     ax.view_init(elev=20, azim=45)
     plt.tight_layout()
+    plt.savefig(f'Resources/Lab2/{title.replace(" ", "_")}.png')
 
 # ============================================================================
 # MAIN EXECUTION
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     # Exercise 2.2: Energy analysis
     print(f"\nEnergy conserved: {abs(results1[0,7] - results1[-1,7]) < 1e-3}")
     
-    plot_results(results1, traj1, "Body Bouncing: k=1.0 (No losses)")
+    plot_results(results1, traj1, "Body Bouncing No losses")
     
     # Exercise 2.3: With energy losses (k=0.8)
     print("\n" + "="*80)
@@ -174,7 +175,7 @@ if __name__ == "__main__":
     
     print(f"\nEnergy loss: {results2[0,7] - results2[-1,7]:.4f} J ({(1-results2[-1,7]/results2[0,7])*100:.2f}%)")
     
-    plot_results(results2, traj2, "Body Bouncing: k=0.8 (With losses)")
+    plot_results(results2, traj2, "Body Bouncing With losses")
     
     print("\n" + "="*80)
     print("SIMULATION COMPLETED")
