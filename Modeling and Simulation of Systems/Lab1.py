@@ -94,31 +94,40 @@ if __name__ == "__main__":
         licznik += 1
         t_maxy.append(t_max)
 
-for i in range(0,5):
-    x = np.linspace(0,40, 10000)
-    y = -1/2 * g * (1/ (g_v0[i]*np.cos(dobre_alfa[i]))**2) * (x**2) + np.tan(dobre_alfa[i])*x
-    mask = y > 0
-    plt.plot(x[mask],y[mask], color='cyan')
+    for i in range(0,5):
+        x = np.linspace(0,40, 10000)
+        y = -1/2 * g * (1/ (g_v0[i]*np.cos(dobre_alfa[i]))**2) * (x**2) + np.tan(dobre_alfa[i])*x
+        mask = y > 0
+        plt.plot(x[mask],y[mask], color='cyan')
 
-plt.draw()
+    plt.draw()
 
-x1, y1 = [4, 5], [5, 5]
-x2, y2 = [7, 10], [5, 5]
-plt.plot(x1, y1, color='red')
-plt.plot(x2, y2, color='red')
-x3, y3 = [2, 2], [2, 8]
-plt.plot(x3, y3, color='green')
-x4, y4 = [11,11], [3, 7]
-plt.plot(x4, y4, color='green')
+    x1, y1 = [4, 5], [5, 5]
+    x2, y2 = [7, 10], [5, 5]
+    plt.plot(x1, y1, color='red')
+    plt.plot(x2, y2, color='red')
+    x3, y3 = [2, 2], [2, 8]
+    plt.plot(x3, y3, color='green')
+    x4, y4 = [11,11], [3, 7]
+    plt.plot(x4, y4, color='green')
 
 
-print(t_max_max)
-plt.show()
-print("licznik: ", licznik)
-print('procent: ' +  str(round(licznik/N*100, 2)) + "%")
+    print(t_max_max)
+    plt.xlabel('x [m]')
+    plt.ylabel('y [m]')
+    plt.title('Projectile Trajectories with Obstacles')
+    plt.savefig('Resources/Lab1/Projectile_Trajectories.png')
+    plt.show()
 
-plt.scatter(dobre_alfa, g_v0, color='red')
-plt.show()
+    print("licznik: ", licznik)
+    print('procent: ' +  str(round(licznik/N*100, 2)) + "%")
+
+    plt.scatter(dobre_alfa, g_v0, color='red')
+    plt.xlabel('Angle [rad]')
+    plt.ylabel('Initial Velocity [m/s]')
+    plt.title('Accepted Initial Parameters')
+    plt.savefig('Resources/Lab1/Accepted_Parameters.png')
+    plt.show()
 
 
 
