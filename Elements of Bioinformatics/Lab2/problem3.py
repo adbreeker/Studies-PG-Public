@@ -1,6 +1,5 @@
 #Finding a Protein Motif
 import os
-import sys
 import pyperclip
 import re
 import requests

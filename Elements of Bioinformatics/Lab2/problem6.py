@@ -1,6 +1,5 @@
 #Calculating Protein Mass
 import os
-import sys
 import pyperclip
 
 test_data = "SKADYEK"
