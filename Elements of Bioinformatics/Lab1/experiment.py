@@ -5,10 +5,10 @@ import sys
 # Add current directory to sys.path to ensure imports work correctly
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from Lab1.problem1 import CountNucleotides
-from Lab1.problem2 import TranscribeDNA2RNA
-from Lab1.problem6 import TranslateRNA2Protein
-from Lab1.problem7 import ComputeGCContent
+from Lab1.problem1_DNA import CountNucleotides
+from Lab1.problem2_RNA import TranscribeDNA2RNA
+from Lab1.problem6_PROT import TranslateRNA2Protein
+from Lab1.problem7_GC import ComputeGCContent
 
 def read_dna(filepath):
     with open(filepath, 'r') as f:

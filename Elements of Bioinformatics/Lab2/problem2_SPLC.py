@@ -4,9 +4,9 @@ import sys
 import pyperclip
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Lab1.problem2 import TranscribeDNA2RNA
-from Lab1.problem6 import TranslateRNA2Protein
-from Lab1.problem7 import GetFASTASequences
+from Lab1.problem2_RNA import TranscribeDNA2RNA
+from Lab1.problem6_PROT import TranslateRNA2Protein
+from Lab1.problem7_GC import GetFASTASequences
 
 test_data = """>Rosalind_10
 ATGGTCTACATAGCTGACAAACAGCACGTAGCAATCGGTCGAATCTCGAGAGGCATATGGTCACATGATCGGTCGAGCGTGTTTCAAAGTTTGCGCCTAG

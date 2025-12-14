@@ -4,7 +4,7 @@ import sys
 import pyperclip
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Lab1.problem7 import GetFASTASequences
+from Lab1.problem7_GC import GetFASTASequences
 
 test_data = """>Rosalind_1
 ATCCAGCT

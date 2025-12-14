@@ -3,10 +3,10 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Lab1.problem2 import TranscribeDNA2RNA
-from Lab1.problem3 import ComplementDNA
-from Lab1.problem6 import TranslateRNA2Protein, codon_table
-from Lab1.problem7 import GetFASTASequences
+from Lab1.problem2_RNA import TranscribeDNA2RNA
+from Lab1.problem3_REVC import ComplementDNA
+from Lab1.problem6_PROT import TranslateRNA2Protein, codon_table
+from Lab1.problem7_GC import GetFASTASequences
 
 test_data = """>Rosalind_99
 AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG"""

@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Lab1.problem6 import TranslateRNA2Protein
-from Lab1.problem7 import GetFASTASequences
-from Lab2.problem1 import GetORFs
+from Lab1.problem6_PROT import TranslateRNA2Protein
+from Lab1.problem7_GC import GetFASTASequences
+from Lab2.problem1_ORF import GetORFs
 
 test_data = """>Test
 AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG"""
