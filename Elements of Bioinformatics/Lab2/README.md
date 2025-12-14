@@ -114,3 +114,20 @@ The length distribution reveals that most ORFs are short (<30 AA), likely repres
 **Figure 2:** ORF count vs. protein length plot showing how many ORFs exist at each length. The sharp decline after short lengths indicates that longer ORFs are rare and more likely to be genuine coding sequences rather than random occurrences.
 
 *(AI Assistance: Used AI to import and merge my solutions of problems from `Lab1/` and `Lab2/` into whole experiment, and to plot and summarize results.)*
+
+---
+
+## Section 4. Rosalind validation
+
+I've passed all 7 (8 if counting additional requirements) problems from Lab2 on Rosalind:
+- 5 default problems:
+    - [ORF](https://rosalind.info/problems/orf/) – Open Reading Frames 
+    - [SPLC](https://rosalind.info/problems/splc/) – RNA Splicing
+    - [MPRT](https://rosalind.info/problems/mprt/) – Finding a Protein Motif
+    - [CONS](https://rosalind.info/problems/cons/) – Consensus and Profile | (and prerequired [FIB](https://rosalind.info/problems/fib/))
+    - [SSEQ](https://rosalind.info/problems/sseq/) – Finding a Spliced Motif
+- 2 bonus problems:
+    - [PRTM](https://rosalind.info/problems/prtm/) – Calculating Protein Mass
+    - [MRNA](https://rosalind.info/problems/mrna/) – Inferring mRNA from Protein
+
+![Rosalind Validation 2](Images/rosalind2.png)

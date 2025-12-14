@@ -6,6 +6,8 @@ Biological information flows in a specific direction: **DNA** → **RNA** → **
 
 *(AI usage: I used AI to help refine the explanation to ensure all required terms were included naturally and the flow was logical and concise.)*
 
+---
+
 ## Section 2. Mini-glossary
 
 *   **DNA (Deoxyribonucleic acid)**: The molecule that carries the genetic instructions for life. For a computer scientist, it can be thought of as a long, stable string of code written in a 4-character alphabet (A, C, G, T).
@@ -19,6 +21,8 @@ Biological information flows in a specific direction: **DNA** → **RNA** → **
 *   **Reverse complement**: The sequence formed by reversing a DNA string and swapping each character with its pair (A ↔ T, C ↔ G). This is necessary because DNA is double-stranded and runs in opposite directions.
 
 *(AI usage: I drafted the definitions and asked AI to refine them to be "computer scientist friendly" analogies.)*
+
+---
 
 ## Section 3. Python experiment – “From sequence to protein”
 
@@ -138,3 +142,19 @@ I generated a bar chart showing the distribution of nucleotides in the input seq
 In this experiment, I processed a DNA sequence to extract biological insights. I calculated the nucleotide counts, finding them to be relatively balanced (A: 218, C: 208, G: 215, T: 215), which resulted in a GC content of approximately 49.42%. The transcription step successfully converted the DNA string to mRNA by replacing Thymine with Uracil. Finally, the translation logic correctly identified the start codon 'AUG' and translated the subsequent sequence into a peptide chain starting with Methionine (M), demonstrating the core steps of the central dogma in silico.
 
 *(AI usage: I used AI to merge my previous functions from `problem1.py` through `problem7.py` into whole experiment, and to help summarize the results.)*
+
+---
+
+## Section 4. Rosalind validation
+
+I've passed all 7 problems from Lab1 on Rosalind:
+- [DNA](https://rosalind.info/problems/dna/) – Counting DNA Nucleotides
+- [RNA](https://rosalind.info/problems/rna/) – Transcribing DNA into RNA
+- [REVC](https://rosalind.info/problems/revc/) – Complementing a Strand of DNA
+- [HAMM](https://rosalind.info/problems/hamm/) – Counting Point Mutations
+- [SUBS](https://rosalind.info/problems/subs/) – Finding a Motif in DNA
+- [PROT](https://rosalind.info/problems/prot/) – Translating RNA into Protein
+- [GC](https://rosalind.info/problems/gc/) – Computing GC Content
+
+
+![Rosalind Validation 1](Images/rosalind1.png)
