@@ -4,7 +4,7 @@ import sys
 import pyperclip
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Lab1.problem7 import GetSequences
+from Lab1.problem7 import GetFASTASequences
 
 test_data = """>Rosalind_1
 ATCCAGCT
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     else:
         data = test_data
 
-    sequences = GetSequences(data)
+    sequences = GetFASTASequences(data)
     profile = GetProfileMatrix(sequences)
     consensus = GetConsensus(profile)
 

@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Lab1.problem2 import TranscribeDNA2RNA
 from Lab1.problem3 import ComplementDNA
 from Lab1.problem6 import TranslateRNA2Protein, codon_table
-from Lab1.problem7 import GetSequences
+from Lab1.problem7 import GetFASTASequences
 
 test_data = """>Rosalind_99
 AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG"""
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     else:
         data = test_data
 
-    sequence = GetSequences(data)[0].sequence
+    sequence = GetFASTASequences(data)[0].sequence
     ORFs = GetORFs(sequence)
     results = set(TranslateRNA2Protein(orf) for orf in ORFs)
     for res in results:

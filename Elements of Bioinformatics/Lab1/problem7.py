@@ -12,7 +12,7 @@ ATATCCATTTGTCAGCAGACACGC
 CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGAC
 TGGGAACCTGCGGGCAGTAGGTGGAAT"""
 
-class Sequence:
+class FASTASequence:
     def __init__(self, name, sequence):
         self.name = name
         self.sequence = sequence
@@ -24,7 +24,7 @@ def ComputeGCContent(seq):
     percent = 100.0 * gc_count / total
     return percent
 
-def GetSequences(data):
+def GetFASTASequences(data):
     splited = data.split(">")[1:]
     DNA_sets = []
     for s in splited:
@@ -32,7 +32,7 @@ def GetSequences(data):
         if lines:
             header = lines[0]
             sequence = "".join(lines[1:])
-            DNA_sets.append(Sequence(header, sequence.upper()))
+            DNA_sets.append(FASTASequence(header, sequence.upper()))
     return DNA_sets
         
 if __name__ == "__main__":
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     else:
         data = test_data
     
-    sequences = GetSequences(data)
+    sequences = GetFASTASequences(data)
     results = []
     for seq in sequences:
         gc_content = ComputeGCContent(seq.sequence)
