@@ -44,19 +44,38 @@ def predictions(Nt, xt, yt, Nv, xv, yv, fv, beta, a):
     return eps_max, eps_mean
 
 def beta_finder(Nt, xt, yt, ft, Nv, xv, yv, fv):
-    best_eps = 1.0
-    best_beta = 1
+    betas = []
     for beta in np.arange(0.5, 3.0, 0.01):
         a = get_a(Nt, xt, yt, ft, beta)
-        string = f"Checking beta: {beta}"
         eps_max, eps_mean = predictions(Nt, xt, yt, Nv, xv, yv, fv, beta, a)
-        if(eps_mean < best_eps):
-            best_eps = eps_mean
-            best_beta = beta
-            string += f" | New best with error {best_eps}"
-        print(string)
-    return best_beta
+        betas.append((beta, eps_mean))
+        print(f"Checking beta: {beta} | Mean Error: {eps_mean}")
+    #return all betas for ploting and best beta for solution
+    return betas, min(betas, key=lambda x: x[1])[0]
 
+
+def plot_beta_finder(betas, best_beta, name=""):
+    beta_values = [b[0] for b in betas]
+    mean_errors = [b[1] for b in betas]
+
+    #create plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(beta_values, mean_errors, 'b-', linewidth=2, label='Mean Error')
+    plt.axvline(x=best_beta, color='r', linestyle='--', linewidth=2, label=f'Best Beta = {best_beta:.2f}')
+    plt.scatter([best_beta], [min(mean_errors)], color='r', s=100, zorder=5)
+
+    #labels and title
+    plt.xlabel('Beta', fontsize=12)
+    plt.ylabel('Mean Error', fontsize=12)
+    plt.title(f'Beta Parameter Optimization{f" ({name})" if name else ""}', fontsize=14, fontweight='bold')
+    plt.grid(True, alpha=0.3)
+    plt.legend(fontsize=10)
+
+    #save and show plot
+    plt.tight_layout()
+    if name != "":
+        plt.savefig(f'Resources/Lab4/Beta_Optimization_{name.replace(" ", "_")}.png')
+    plt.show()
 
 def plot_results(xt, yt, beta, a, x_range, y_range, solution_name="", eps_mean=None):
     #create mesh for plot
@@ -121,21 +140,22 @@ if __name__ == '__main__':
     x_range = [1,6]
     y_range = [1,5]
 
-    #beta = beta_finder(Nt, xt, yt, ft, Nv, xv, yv, fv)
-    #print(f"Found beta: {beta}")
+    #betas, best_beta = beta_finder(Nt, xt, yt, ft, Nv, xv, yv, fv)
+    #plot_beta_finder(betas, best_beta, name="Inverse Quadratic")
+    #print(f"Found beta: {best_beta}")
 
     #best beta polynomial
-    #beta = 0.88
+    #best_beta = 0.88
 
     #best beta for inverse quadratic
-    beta = 0.93
+    best_beta = 0.93
 
     #solution
-    a = get_a(Nt, xt, yt, ft, beta)
-    eps_max, eps_mean = predictions(Nt, xt, yt, Nv, xv, yv, fv, beta, a)
+    a = get_a(Nt, xt, yt, ft, best_beta)
+    eps_max, eps_mean = predictions(Nt, xt, yt, Nv, xv, yv, fv, best_beta, a)
     print(f"Maximum error: {eps_max}")
     print(f"Mean error: {eps_mean}")
 
     #ploting
-    plot_results(xt, yt, beta, a, x_range, y_range, "RBF Inverse Quadratic", eps_mean)
+    plot_results(xt, yt, best_beta, a, x_range, y_range, "RBF Inverse Quadratic", eps_mean)
 
