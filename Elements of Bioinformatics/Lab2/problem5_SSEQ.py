@@ -17,7 +17,7 @@ class SubPositions():
         self.positions = positions
 
 # NP-hard solution may take long for large inputs
-def GetAllSplicedMotifs(sequence, subsequence): 
+def FindAllSplicedMotifs(sequence, subsequence): 
     subpositions_list = []
     for nuc in subsequence:
         positions = [i for i, letter in enumerate(sequence) if letter == nuc]
@@ -38,7 +38,7 @@ def GetAllSplicedMotifs(sequence, subsequence):
     return results
 
 # Get only the first found spliced motif to avoid NP-hard complexity
-def GetFirstSplicedMotif(sequence, subsequence):
+def FindFirstSplicedMotif(sequence, subsequence):
     subpositions_list = []
     for nuc in subsequence:
         positions = [i for i, letter in enumerate(sequence) if letter == nuc]
@@ -62,7 +62,7 @@ if __name__ == '__main__':
         data = test_data
 
     sequences = GetFASTASequences(data)
-    result = GetFirstSplicedMotif(sequences[0].sequence, sequences[1].sequence)
+    result = FindFirstSplicedMotif(sequences[0].sequence, sequences[1].sequence)
     result = " ".join(str(pos) for pos in result)
     
     pyperclip.copy(result)
