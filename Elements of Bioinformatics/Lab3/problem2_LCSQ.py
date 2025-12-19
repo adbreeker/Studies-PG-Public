@@ -11,9 +11,7 @@ AACCTTGG
 >Rosalind_64
 ACACTGTGA"""
 
-def GetSharedSplicedMotif(sequences):
-    seq1 = sequences[0].sequence
-    seq2 = sequences[1].sequence
+def GetSharedSplicedMotif(seq1, seq2):
     n = len(seq1)
     m = len(seq2)
     dp = [[0] * (m + 1) for _ in range(n + 1)] #n rows and m columns
@@ -51,7 +49,7 @@ if __name__ == '__main__':
         data = test_data
 
     sequences = GetFASTASequences(data)
-    result = GetSharedSplicedMotif(sequences)
+    result = GetSharedSplicedMotif(sequences[0].sequence, sequences[1].sequence)
 
     pyperclip.copy(result)
     print(result)
