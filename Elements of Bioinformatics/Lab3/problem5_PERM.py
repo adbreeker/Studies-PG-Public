@@ -1,4 +1,4 @@
-#Finding a Shared Motif
+#Enumerating Gene Orders
 import os
 import pyperclip
 
