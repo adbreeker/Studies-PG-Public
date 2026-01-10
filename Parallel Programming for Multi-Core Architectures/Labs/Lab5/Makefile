@@ -79,6 +79,7 @@ compare: compile
 	fi; \
 	echo "";
 
+# Clean up binaries
 clean:
 	@rm -f $(HISTOGRAM_BASIC_BIN) $(HISTOGRAM_NO_RACE_BIN)
 	@echo "Cleaned up binaries."
