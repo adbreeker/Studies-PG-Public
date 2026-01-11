@@ -1,4 +1,4 @@
-# Makefile 
+# Makefile for QuickSort implementations
 
 # Colors
 RED = \033[0;31m
