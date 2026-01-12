@@ -1,2 +1,4 @@
 .venv/
 Datasets/
+__pycache__/
+TrainingOutputs/

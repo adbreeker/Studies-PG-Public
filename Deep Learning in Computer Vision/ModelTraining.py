@@ -1,20 +1,40 @@
 import os
+# Suppress TensorFlow logs BEFORE importing
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 import time
 import matplotlib.pyplot as plt
 import numpy as np
 import json
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 import tensorflow as tf
-from keras.src.models import Sequential
-from keras.src.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-from keras.src.callbacks import ModelCheckpoint, EarlyStopping
+import logging
+logging.getLogger('tensorflow').setLevel(logging.ERROR)
+
+# Configure GPU memory growth
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        print(f"GPU enabled: {gpus[0].name}")
+    except RuntimeError as e:
+        print(f"GPU configuration error: {e}")
+else:
+    print("No GPU found - running on CPU")
+
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Input
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 from DatasetPreparation import LoadDatasetWithNormalization
 
 
 def CreateModel(input_shape=(128, 128, 3), num_classes=4):
 
     model = Sequential([
-        Conv2D(64, (3, 3), activation='relu', padding='same', input_shape = input_shape),
+        Input(shape=input_shape),
+        Conv2D(64, (3, 3), activation='relu', padding='same'),
         MaxPooling2D(2, 2),
 
         Conv2D(128, (3, 3), activation='relu', padding='same'),
@@ -41,7 +61,7 @@ def CreateModel(input_shape=(128, 128, 3), num_classes=4):
 
     return model
 
-def TrainAndEvaluate(split_dir, output_dir, batch_size=32, epochs=30, img_size=(128, 128), is_overfit=False):
+def TrainAndEvaluate(split_dir, output_dir, batch_size=32, epochs=30, img_size=(128, 128)):
     os.makedirs(output_dir, exist_ok=True)
     checkpoint_dir = os.path.join(output_dir, 'checkpoints')
     os.makedirs(checkpoint_dir, exist_ok=True)
@@ -74,16 +94,15 @@ def TrainAndEvaluate(split_dir, output_dir, batch_size=32, epochs=30, img_size=(
         )
     ]
     
-    #stopping training if validation accuracy did not imporove in last 10 epochs
-    if not is_overfit: #only if not tryting to overfit model - which i probably did anyway ...
-        callbacks.append(
-            EarlyStopping(
-                monitor='val_accuracy',
-                patience=10,
-                restore_best_weights=True,
-                verbose=1
-            )
+    callbacks.append(
+        EarlyStopping(
+            monitor='val_accuracy',
+            patience=10,
+            restore_best_weights=True,
+            verbose=1
         )
+    )
+        
     
     history = model.fit(
         train_dataset,
@@ -157,7 +176,7 @@ def FindBestModel(checkpoint_dir): #validation accuracy
     return None, 0.0
 
 
-def TrainSplit(split_name, output_model_path, batch_size=32, epochs=30, img_size=(128, 128), is_overfit=False):
+def TrainSplit(split_name, output_model_path, batch_size=32, epochs=30, img_size=(128, 128)):
     split_dir = f'./Datasets/{split_name}'
     output_dir = f'./TrainingOutputs/{split_name}'
     os.makedirs(output_dir, exist_ok=True)
@@ -170,7 +189,6 @@ def TrainSplit(split_name, output_model_path, batch_size=32, epochs=30, img_size
         batch_size=batch_size,
         epochs=epochs,
         img_size=img_size,
-        is_overfit=is_overfit
     )
     
     for key, value in stats.items():
@@ -210,14 +228,13 @@ if __name__ == "__main__":
     IMG_SIZE = (128, 128)
     
     # Split1
-    TrainSplit(
-        split_name='Split1',
-        output_model_path='./TrainingOutputs/Split1/MODEL1.keras',
-        batch_size=64,
-        epochs=100,
-        img_size=IMG_SIZE,
-        is_overfit=True
-    )
+    # TrainSplit(
+    #     split_name='Split1',
+    #     output_model_path='./TrainingOutputs/Split1/MODEL1.keras',
+    #     batch_size=128,
+    #     epochs=50,
+    #     img_size=IMG_SIZE,
+    # )
     
     # Split2
     TrainSplit(
@@ -226,17 +243,6 @@ if __name__ == "__main__":
         batch_size=128,
         epochs=50,
         img_size=IMG_SIZE,
-        is_overfit=False
-    )
-    
-    # Split3
-    TrainSplit(
-        split_name='Split3',
-        output_model_path='./TrainingOutputs/Split3/MODEL3.keras',
-        batch_size=128,
-        epochs=50,
-        img_size=IMG_SIZE,
-        is_overfit=False
     )
     
     print("\nAll training completed successfully!")
