@@ -225,24 +225,31 @@ def TrainSplit(split_name, output_model_path, batch_size=32, epochs=30, img_size
 if __name__ == "__main__":
     os.makedirs('./TrainingOutputs', exist_ok=True)
     
-    IMG_SIZE = (128, 128)
-    
     # Split1
     # TrainSplit(
     #     split_name='Split1',
     #     output_model_path='./TrainingOutputs/Split1/MODEL1.keras',
     #     batch_size=128,
     #     epochs=50,
-    #     img_size=IMG_SIZE,
+    #     img_size=(128, 128),
     # )
     
     # Split2
+    # TrainSplit(
+    #     split_name='Split2',
+    #     output_model_path='./TrainingOutputs/Split2/MODEL2.keras',
+    #     batch_size=128,
+    #     epochs=50,
+    #     img_size=(128, 128),
+    # )
+
+    # Split3
     TrainSplit(
-        split_name='Split2',
-        output_model_path='./TrainingOutputs/Split2/MODEL2.keras',
+        split_name='Split3',
+        output_model_path='./TrainingOutputs/Split3/MODEL3.keras',
         batch_size=128,
         epochs=50,
-        img_size=IMG_SIZE,
+        img_size=(150, 150),
     )
     
     print("\nAll training completed successfully!")

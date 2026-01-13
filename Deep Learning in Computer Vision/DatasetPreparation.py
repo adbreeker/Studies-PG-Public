@@ -141,10 +141,13 @@ if __name__ == "__main__":
     original_data_dir = './Datasets/BaseDataset'
     split1_dir = './Datasets/Split1'
     split2_dir = './Datasets/Split2'
+    split3_dir = './Datasets/Split3'
 
-    CopySplitDataFromDir(original_data_dir, split1_dir)
-    CopySplitDataFromDir(original_data_dir, split2_dir)
+    #CopySplitDataFromDir(original_data_dir, split1_dir)
+    #CopySplitDataFromDir(original_data_dir, split2_dir)
+    CopySplitDataFromDir(original_data_dir, split3_dir)
 
-    StandardizeAndAugmentData(split2_dir, augmented_copies=4)
+    #StandardizeAndAugmentData(split2_dir, augmented_copies=9, img_size=(128, 128))
+    StandardizeAndAugmentData(split3_dir, augmented_copies=4, img_size=(150, 150))
 
     print("Dataset preparation finished")
