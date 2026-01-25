@@ -75,9 +75,10 @@ Standard implementation with three phases:
 
 | Metric | Genetic Algorithm | Cuckoo Search | Artificial Bee Colony |
 |--------|-------------------|---------------|----------------------|
+| **Number of populations** | ≈ 22962 | ≈ 21767 | ≈ 14568 |
 | **Sequences Generated** | 237 | 167 | 75 |
 | **Avg. Generations Between Discoveries** | 96.5 | 130.8 | 196.3 |
-| **Sequence Length** | 8 elements | 9 elements | 10 elements |
+| **Longest Sequence** | 8 elements | 9 elements | 10 elements |
 
 ![Number of Sequences Generated](Results/plot1_num_sequences.png)
 *Figure 1: Total number of candidate sequences discovered by each algorithm*
@@ -176,7 +177,7 @@ This analysis examines how consistently each algorithm converges to specific seq
 - Limited exploration, especially for smaller increments
 - 96.6% of sequences share the same [24, 9, 4, 1] ending pattern
 
-**Verdict:** Excellent for exploitation but poor diversity in solutions.
+**Verdict:** Excellent for exploitation but poor diversity in solutions. It is hard to tell if this new version is beneficial.
 
 ### 4.2 Cuckoo Search
 **Strengths:**
@@ -190,7 +191,7 @@ This analysis examines how consistently each algorithm converges to specific seq
 - Current step size (1% of gap) may be too conservative
 - Difficult to tune step size to balance small increment precision with exploration
 
-**Verdict:** Best middle ground; shows promise for parameter optimization.
+**Verdict:** Currently best middle ground; shows promise for parameter optimization.
 
 ### 4.3 Artificial Bee Colony
 **Strengths:**
@@ -210,25 +211,28 @@ This analysis examines how consistently each algorithm converges to specific seq
 
 | Criterion | Winner | Notes |
 |-----------|--------|-------|
-| **Speed** | Genetic Algorithm | 3.2× faster than ABC |
+| **Speed** | Genetic Algorithm | 1.4× faster than Cuckoo, 3.2× faster than ABC |
+| **Exploitation** | Genetic Algorithm | 96.6% top-4 pattern convergence vs 93.4% (Cuckoo) and 16% (ABC) |
 | **Exploration** | Artificial Bee Colony | Only 16% vs 96% top-pattern convergence |
 | **Balance** | Cuckoo Search | Good speed with reasonable diversity |
 | **Convergence Quality** | Cuckoo Search | 80.2% convergence on a single 5-element pattern |
 
 ### 4.5 Recommendations for Future Research
 
-1. **Cuckoo Search Optimization:** Primary focus should be on tuning meta-parameters (step size, β) to improve exploration while maintaining speed. The current 1% step size may need adjustment based on gap magnitude.
+1. **Genetic Algorithm Optimization:** The previous version of the genetic algorithm has already proven that this crossover makes sense (over 90% of solutions were from children while the distribution of children and random sequences was 50/50). Currently, survival of the best sequences is leading to quick convergence to local optima, so this part needs some changes. Mutations, however, have proven to be very useful and often produce new solutions.
 
-2. **Hybrid Approach:** Consider combining ABC's exploration capabilities with Genetic/Cuckoo exploitation:
+2. **Cuckoo Search Optimization:** Primary focus should be on tuning meta-parameters (step size, β) to improve exploration while maintaining speed. The current 1% step size may need adjustment based on gap magnitude.
+
+3. **Hybrid Approach:** Consider combining ABC's exploration capabilities with Genetic/Cuckoo exploitation:
    - Use ABC for initial diverse population seeding
    - Switch to Genetic or Cuckoo for refinement
 
-3. **ABC Optimization:** If Cuckoo optimization proves unsuccessful, investigate reducing ABC's objective function calls through:
+4. **ABC Optimization:** If Cuckoo optimization proves unsuccessful, investigate reducing ABC's objective function calls through:
    - Lazy evaluation strategies
    - Approximate fitness caching
    - Reduced onlooker phase iterations
 
-4. **Parameter Adaptation:** Implement adaptive step sizes for Cuckoo Search that scale appropriately for different gap magnitudes.
+5. **Testing other algorithms or implementations:** This experiment has proven that swarm inteligence have potential in seeking Shellsort's gap sequences. My biggests mistake was to change previous genetic algorithm without comapring it approaches presented in this report. I belive that experimenting with other algorithms and implementations might be really beneficial for the problem. 
 
 ---
 
@@ -274,4 +278,4 @@ Project was realised as part of my master thesis regarding experimental search o
 
 ---
 
-**Note:** *The final version of this report was coherently and clearly formatted from my own notes on the results by an AI model. The AI also assisted in plotting the statistics achieved as a result of my own implementations of solution space search algorithms (genetic, cuckoo, abc). I have reviewed the final report and stand by its content; however, at the instructor’s request, I can rewrite it into a fully human, albeit less readable, version.*
+**Note:** *The final version of this report was  formatted from my own notes on the results with help of an AI model. The AI also assisted in plotting the statistics achieved as a result of my own implementations of solution space search algorithms (genetic, cuckoo, abc). I have reviewed and polished the final report and stand by its content; however, at the instructor’s request, I can rewrite it into a fully human, albeit less readable, version.*
