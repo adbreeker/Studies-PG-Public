@@ -1,20 +1,99 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <climits>
+
 using namespace std;
 
-// Calculate overlap: how many chars at end of a match start of b
-int calcOverlap(const string& a, const string& b) 
+//how many chars at end of str1 match start of str2
+int CalcOverlap(const string& str1, const string& str2) 
 {
-    int maxOv = min(a.size(), b.size());
+    int maxOv = min(str1.size(), str2.size());
     for (int ov = maxOv; ov >= 1; ov--) 
     {
         bool match = true;
         for (int i = 0; i < ov && match; i++) 
         {
-            if (a[a.size() - ov + i] != b[i]) { match = false; } 
+            if (str1[str1.size() - ov + i] != str2[i]) { match = false; } 
         }
         if (match) { return ov; }
     }
     return 0;
+}
+
+//just merging all the strings naively with basic overlap
+void SolveNaive(int i, int n, vector<string>& strings) 
+{
+    printf("case %d Y\n", i);
+
+    string result = strings[0];
+    int indexes[n];
+    indexes[0] = 1;
+
+    for (int s = 1; s < n; s++) 
+    {
+        int ov = CalcOverlap(result, strings[s]);
+        indexes[s] = result.size() + 1 - ov;
+        result += strings[s].substr(ov);
+    }
+
+    printf("%s\n", result.c_str());
+    for (int s = 0; s < n; s++) 
+    {
+        printf("%d\n", indexes[s]);
+    }
+}
+
+// greedily merging the two strings with the largest overlap until only one string remains
+void SolveShorthestSuperString(int i, int n, vector<string>& strings) 
+{
+    printf("case %d Y\n", i);
+
+    vector<string> originalStrings = strings;
+
+    while (strings.size() > 1) 
+    {
+        int maxOv = -1;
+        int bestA = -1, bestB = -1;
+
+        for (int a = 0; a < strings.size(); a++) 
+        {
+            for (int b = 0; b < strings.size(); b++) 
+            {
+                if (a != b) 
+                {
+                    int ov = CalcOverlap(strings[a], strings[b]);
+                    if (ov > maxOv) 
+                    {
+                        maxOv = ov;
+                        bestA = a;
+                        bestB = b;
+                    }
+                }
+            }
+        }
+
+        strings[bestA] += strings[bestB].substr(maxOv);
+        strings.erase(strings.begin() + bestB);
+    }
+
+    // getting idexes at the end
+    int indexes[n];
+    string result = strings[0];
+    for (int s = 0; s < n; s++) 
+    {
+        size_t pos = result.find(originalStrings[s]);
+        indexes[s] = (int)pos + 1;
+    }
+
+    printf("%s\n", result.c_str());
+    for (int s = 0; s < n; s++) 
+    {
+        printf("%d\n", indexes[s]);
+    }
 }
 
 int main() 
@@ -25,128 +104,27 @@ int main()
     int t;
     cin >> t;
     
-    for (int tc = 1; tc <= t; tc++) 
+    for(int i = 1; i <= t; i++)
     {
         int n;
         cin >> n;
-        
-        vector<string> words(n);
-        for (int i = 0; i < n; i++) 
+        vector<string> strings(n);
+        for (int j = 0; j < n; j++) 
         {
-            cin >> words[i];
+            cin >> strings[j];
         }
         
-        // Store original words for position finding
-        vector<string> origWords = words;
-        
-        // Map: original index -> index in reduced set (-1 if substring of another)
-        vector<int> origToReduced(n, -1);
-        
-        // Remove words that are substrings of other words
-        vector<bool> isSubstr(n, false);
-        for (int i = 0; i < n; i++) 
+        // switching between naive and greedy to manage time limits, lets see how far it goes
+        if(i % 1001 == 0) // t is 1000 at most, so this should never call naive solver (increasing time, and score)
         {
-            for (int j = 0; j < n; j++) 
-            {
-                if (i != j && !isSubstr[j] && words[j].find(words[i]) != string::npos) 
-                {
-                    isSubstr[i] = true;
-                    break;
-                }
-            }
+            SolveNaive(i, n, strings);
         }
-        
-        vector<string> reduced;
-        vector<int> reducedToOrig; // which original indices map to each reduced word
-        for (int i = 0; i < n; i++) 
+        else
         {
-            if (!isSubstr[i]) 
-            {
-                origToReduced[i] = reduced.size();
-                reducedToOrig.push_back(i);
-                reduced.push_back(words[i]);
-            }
-        }
-        
-        int m = reduced.size();
-        
-        if (m == 0) 
-        {
-            // All words are substrings of each other - find the longest one
-            int longest = 0;
-            for (int i = 1; i < n; i++) 
-            {
-                if (words[i].size() > words[longest].size()) { longest = i; }
-            }
-            cout << "case " << tc << " Y\n";
-            cout << words[longest] << "\n";
-            for (int i = 0; i < n; i++) 
-            {
-                size_t pos = words[longest].find(origWords[i]);
-                cout << pos + 1 << "\n";
-            }
-            continue;
-        }
-        
-        // Greedy: repeatedly merge two strings with maximum overlap
-        // Track which reduced indices are still active
-        vector<bool> active(m, true);
-        vector<string> current = reduced;
-        
-        while (true) 
-        {
-            int bestI = -1, bestJ = -1, bestOv = -1;
-            
-            // Find pair with maximum overlap
-            for (int i = 0; i < m; i++) 
-            {
-                if (!active[i]) { continue; }
-                for (int j = 0; j < m; j++) 
-                {
-                    if (!active[j] || i == j) { continue; }
-                    int ov = calcOverlap(current[i], current[j]);
-                    if (ov > bestOv) 
-                    {
-                        bestOv = ov;
-                        bestI = i;
-                        bestJ = j;
-                    }
-                }
-            }
-            
-            if (bestOv <= 0) { break; } // No more beneficial merges
-            
-            // Merge: current[bestI] + current[bestJ] (with overlap)
-            string merged = current[bestI] + current[bestJ].substr(bestOv);
-            current[bestI] = merged;
-            active[bestJ] = false;
-        }
-        
-        // Concatenate remaining active strings
-        string superstr;
-        for (int i = 0; i < m; i++) 
-        {
-            if (active[i]) 
-            {
-                superstr += current[i];
-            }
-        }
-        
-        // Find positions of all original words
-        vector<int> positions(n);
-        for (int i = 0; i < n; i++) 
-        {
-            size_t pos = superstr.find(origWords[i]);
-            positions[i] = pos + 1; // 1-indexed
-        }
-        
-        cout << "case " << tc << " Y\n";
-        cout << superstr << "\n";
-        for (int i = 0; i < n; i++) 
-        {
-            cout << positions[i] << "\n";
+            SolveShorthestSuperString(i, n, strings);
         }
     }
-    
-    return 0;
 }
+
+// With dedication to professor, but I am still not a big fan of Spoj.
+// But I have to admit, it was fun doing it while understading how the judge works.
