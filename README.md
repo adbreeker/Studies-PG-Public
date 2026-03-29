@@ -6,21 +6,72 @@ A comprehensive collection of advanced computer science projects from my ongoing
 
 ## 📚 Repository Overview
 
-This repository contains coursework from my ongoing Master's studies in Computer Science with specialization in **High Performance Computing and Computational Intelligence** at Gdansk University of Technology. All projects currently available are from **Semester 1 (Summer Semester 2025)**, representing six different courses that demonstrate various aspects of modern computer science and software engineering.
+This repository contains coursework from my ongoing Master's studies in Computer Science with specialization in **High Performance Computing and Computational Intelligence** at Gdansk University of Technology. Current work spans **Semesters 1-3 (Winter/Summer Semester 2025-2026)**, encompassing formal coursework, practical projects, and major research initiatives.
 
-## 📅 Semester 1 (Summer Semester 2025)
+## 📅 Semester 1 (Summer 2025)
+
+### Course Projects Overview
+
+| Course/Project | Technologies | Focus Area |
+|---------|-------------|------------|
+| [Advanced AI Technics](#-advanced-ai-technics) | Python, PyTorch, Transformers, HuggingFace | Large Language Models, PEFT, NLP |
+| [Automation of Business Processes](#-automation-of-business-processes) | ArchiMate, BPMN, Visual Paradigm | Enterprise Architecture, Process Modeling |
+| Foundations of Capital Markets | Finance & Economics | Investment Analysis, Market Dynamics |
+| [High Availability Distributed Systems](#-high-availability-distributed-systems) | .NET Core, React, Docker, PostgreSQL | Microservices, CQRS, SAGA, Event Sourcing |
+| [High Performance Computing Systems](#-high-performance-computing-systems) | C, MPI, OpenMP, CUDA | Parallel Computing, GPU Programming |
+| [Multi-Objective Optimization Algorithms](#-multi-objective-optimization-algorithms) | Python, C++, Pymoo, Paradiseo | Evolutionary Algorithms, NSGA-II, MOEA/D |
+| Operational Research | Mathematical Optimization | Optimization Algorithms & Decision Making |
+| Research Methods in Informatics | Academic Methodology | Scientific Research Methodology |
+| [Systems with Machine Learning](#-systems-with-machine-learning) | Python, TensorFlow, Keras, CNN | Deep Learning, Computer Vision |
+
+---
+
+## 📅 Semester 2 (Winter 2025)
 
 ### Course Projects Overview
 
 | Course | Technologies | Focus Area |
 |---------|-------------|------------|
-| [Advanced AI Technics](#-advanced-ai-technics) | Python, PyTorch, Transformers, HuggingFace | Large Language Models, PEFT, NLP |
-| [High Availability Distributed Systems](#-high-availability-distributed-systems) | .NET Core, React, Docker, PostgreSQL | Microservices, CQRS, SAGA, Event Sourcing |
-| [High Performance Computing Systems](#-high-performance-computing-systems) | C, MPI, OpenMP, CUDA | Parallel Computing, GPU Programming |
-| [Multi-Objective Optimization Algorithms](#-multi-objective-optimization-algorithms) | Python, C++, Pymoo, Paradiseo | Evolutionary Algorithms, NSGA-II, MOEA/D |
-| [Automation of Business Processes](#-automation-of-business-processes) | ArchiMate, BPMN, Visual Paradigm | Enterprise Architecture, Process Modeling |
-| [Systems with Machine Learning](#-systems-with-machine-learning) | Python, TensorFlow, Keras, CNN | Deep Learning, Computer Vision |
+| [Deep Learning in Computer Vision](#-deep-learning-in-computer-vision) | Python, TensorFlow, Keras, CNN | Image Classification, Convolutional Networks |
+| [Elements of Bioinformatics](#-elements-of-bioinformatics) | Python, Biopython, Bioinformatics Tools | DNA/RNA Analysis, Protein Structure |
+| Intelligent Information Services | Information Systems | Knowledge Management & Service Architecture |
+| [Modeling and Simulation of Systems](#-modeling-and-simulation-of-systems) | Python, Simulation Tools | Discrete Event Simulation, System Dynamics |
+| [Parallel Programming for Multi-Core Architectures](#-parallel-programming-for-multi-core-architectures) | C, OpenMP, MPI | Shared Memory & Distributed Computing |
+| Physical Layer Security | Security Engineering | Cryptography & Physical Security |
+| Software Licensing | Legal & Business | Intellectual Property & License Management |
+| [Team Strategies](#-team-strategies) | Enterprise Planning | Organizational Strategy & Team Development |
 
+---
+
+## 📅 Semester 3 (Summer 2026)
+
+### Course Overview
+
+| Course | Focus Area |
+|--------|-----------|
+| High Performance Machine Learning | Scalable ML Systems |
+| Information Society Technologies | Technology & Society |
+| [Information Systems Security](#-information-systems-security) | Cybersecurity & Access Control |
+| MSc Diploma Seminar | Research & Academic Development |
+| Social Aspects of Modern Technologies | Ethics & Technology Impact |
+| Technology in Action: AI, Data Science, Cybersecurity | Applied Computing & Innovation |
+
+---
+
+## 📚 Major Research Initiatives
+
+### Team Research Project (Semesters 1 - 2)
+Collaborative research initiative spanning two semesters, demonstrating team coordination, research methodology, and practical problem-solving in distributed computing and computational intelligence.
+
+### MSc Diploma Thesis (Semesters 2 - 3)
+Comprehensive independent research project showcasing deep technical expertise, advanced methodology, and significant contribution to the field of High Performance Computing and Computational Intelligence.
+
+---
+
+<br><br><br><br><br><br><br><br>
+
+---
+## 📖 Semester 1-3: Detailed Course & Project Descriptions
 ---
 
 ## 🤖 Advanced AI Technics
@@ -136,7 +187,122 @@ This repository contains coursework from my ongoing Master's studies in Computer
 
 ---
 
-## 🛠 Technical Skills Demonstrated
+### 🧬 Deep Learning in Computer Vision
+
+**End-to-end deep learning image classification system with comprehensive evaluation**
+
+- **Architecture**: Deep Convolutional Neural Networks (CNN)
+- **Pipeline**: Data preprocessing, augmentation, training, evaluation
+- **Validation**: Multi-split validation strategies for robust evaluation
+- **Technologies**: TensorFlow, Keras, Python, computer vision
+
+### System Features
+- Deep CNN with 4-layer architecture for multi-class classification
+- Comprehensive data augmentation and preprocessing pipeline
+- Interactive testing interface with real-time predictions
+- Statistical analysis across multiple data splitting strategies
+
+**🔗 [Explore Deep Learning in Computer Vision →](./Deep%20Learning%20in%20Computer%20Vision/)**
+
+---
+
+### 🧬 Elements of Bioinformatics
+
+**Comprehensive bioinformatics problem-solving covering genomics, proteomics, and sequence analysis**
+
+- **DNA/RNA Analysis**: Sequence manipulation, conversion, pattern matching
+- **Protein Analysis**: Codon translation, mass calculation, function prediction
+- **Sequence Algorithms**: Pattern matching, consensus sequences, phylogenetic analysis
+- **Technologies**: Python, Biopython, bioinformatics databases
+
+### Key Topics Covered
+- Lab 1: Fundamental sequence operations and molecular biology algorithms
+- Lab 2: Open Reading Frames, RNA splicing, protein analysis
+- Lab 3: Advanced sequence algorithms and biological pattern matching
+- SPOJ Integration: Competitive programming in bioinformatics context
+
+**🔗 [Explore Bioinformatics →](./Elements%20of%20Bioinformatics/)**
+
+---
+
+### 📊 Modeling and Simulation of Systems
+
+**Discrete event simulation, stochastic modeling, and system dynamics analysis**
+
+- **Simulation Methods**: Discrete event simulation, Monte Carlo methods
+- **System Dynamics**: Population models, resource allocation, queuing systems
+- **Analysis Tools**: Python simulation frameworks, statistical analysis
+- **Applications**: Business process simulation, resource optimization
+
+### Lab Coverage
+- Lab 1: Discrete event simulation fundamentals
+- Lab 2: Stochastic processes and probability distributions
+- Lab 3: Complex system interactions and feedback loops
+- Lab 4: Real-world system modeling and analysis
+
+**🔗 [Explore Modeling & Simulation →](./Modeling%20and%20Simulation%20of%20Systems/)**
+
+---
+
+### ⚙️ Parallel Programming for Multi-Core Architectures
+
+**Advanced parallel programming techniques for modern multi-core and distributed systems**
+
+- **Shared Memory Programming**: OpenMP directives, thread synchronization, work distribution
+- **Distributed Computing**: MPI message passing, collective communication
+- **Performance Analysis**: Speedup metrics, efficiency analysis, scalability studies
+- **Technologies**: C, OpenMP, MPI, performance profiling tools
+
+### Labs Overview
+- Shared memory parallelization with OpenMP
+- Distributed memory programming with MPI
+- Hybrid parallel approaches combining OpenMP and MPI
+- Performance optimization and scaling analysis
+- Real-world algorithms: sorting, matrix operations, stencil computations
+
+**🔗 [Explore Parallel Programming →](./Parallel%20Programming%20for%20Multi-Core%20Architectures/)**
+
+---
+
+### 📋 Team Strategies
+
+**Strategic team planning, organizational development, and collaborative leadership**
+
+- **Strategic Planning**: Vision development, objective setting, roadmap creation
+- **Team Dynamics**: Role definition, communication strategies, conflict resolution
+- **Organizational Structure**: Hierarchies, decision-making processes, accountability
+- **Project Management**: Resource allocation, timeline management, risk assessment
+
+### Project Components
+- Strategic analysis and competitive positioning
+- Team structure and role optimization
+- Process improvement and workflow design
+- Performance metrics and evaluation frameworks
+
+**🔗 [Explore Team Strategies →](./Team%20Strategies/)**
+
+---
+
+
+### 🔒 Information Systems Security
+
+**Comprehensive cybersecurity covering authentication, access control, cryptography, and threat protection**
+
+- **Authentication & Access Control**: Identity verification, authorization frameworks, RBAC/ABAC
+- **Cryptography**: Encryption algorithms, digital signatures, key management
+- **Network Security**: Firewalls, intrusion detection, secure protocols
+- **Threat Management**: Vulnerability assessment, risk analysis, incident response
+
+### Security Domains Covered
+- Cryptographic foundations and applications
+- Access control mechanisms and policy enforcement
+- Network security and protocol analysis
+- Security architecture and enterprise protection
+
+
+---
+
+## �🛠 Technical Skills Demonstrated
 
 ### Programming Languages & Frameworks
 - **Python**: TensorFlow, PyTorch, Pandas, NumPy, Matplotlib
@@ -167,26 +333,30 @@ This repository contains coursework from my ongoing Master's studies in Computer
 
 ## 📊 Current Progress Statistics
 
-- **Semester**: 1 (Summer Semester 2025)
-- **Courses Completed**: over 6 courses
-- **Total Labs/Modules**: 25+ individual implementations
-- **Lines of Code**: 10,000+ across all projects
-- **Technologies Explored**: 20+ different technologies and frameworks
-- **Team Collaborations**: Multiple collaborative projects
+- **Semesters**: 3 (Winter/Summer Semester 2025-2026)
+- **Courses**: 18+ total (3 S1 + 8 S2 + 6 S3 + 6 Specialization Projects)
+- **Total Labs/Modules**: 30+ individual implementations
+- **Lines of Code**: 15,000+ across all projects
+- **Technologies Explored**: 25+ different technologies and frameworks
+- **Team Collaborations**: Multiple collaborative projects and seminars
 - **Documentation**: Comprehensive README files and technical reports
+- **Major Projects**: Team Research Project (S1-S2), MSc Diploma Thesis (S2-S3)
 
 ---
 
-## 🎯 Learning Outcomes (Semester 1)
+## 🎯 Learning Outcomes (Semesters 1-3)
 
-This semester has demonstrated comprehensive learning in:
+This comprehensive program has demonstrated learning across three semesters in:
 
 ### Advanced Computer Science Concepts
 - Distributed systems design and implementation
-- High-performance parallel computing
+- High-performance parallel computing and GPU programming
 - Advanced AI and machine learning techniques
-- Complex optimization problems and algorithms
+- Complex optimization problems and evolutionary algorithms
 - Enterprise architecture and business process modeling
+- Bioinformatics and computational biology
+- System modeling and discrete event simulation
+- Cybersecurity and information systems protection
 
 ### Software Engineering Best Practices
 - Clean code principles and modular design
@@ -194,6 +364,7 @@ This semester has demonstrated comprehensive learning in:
 - Docker containerization and orchestration
 - Documentation and technical communication
 - Collaborative development workflows
+- Agile team coordination and strategic planning
 
 ### Research & Innovation
 - Implementation of cutting-edge research algorithms
@@ -201,6 +372,7 @@ This semester has demonstrated comprehensive learning in:
 - Comparative studies and benchmarking
 - Statistical analysis and scientific methodology
 - Real-world problem solving applications
+- Independent research and thesis development
 
 ---
 
@@ -214,17 +386,19 @@ Several projects were developed as team efforts, demonstrating collaboration ski
 
 ---
 
-## 📈 Future Semesters
+## 📈 Continuing Studies
 
-As my Master's studies at Gdansk University of Technology continue, this repository will expand with additional coursework from upcoming semesters. Current projects serve as a foundation for continued research and development in High Performance Computing and Computational Intelligence, including:
+As my Master's studies at Gdansk University of Technology progress through Semesters 2-3 and beyond, this repository continues to expand with additional coursework and research. The completed work across three semesters serves as a foundation for advanced research and development in High Performance Computing and Computational Intelligence, including:
+- **Advanced specializations** in machine learning and data science
 - **Cloud-native architectures** and Kubernetes deployment
-- **Advanced AI systems** and large-scale model training
+- **Cutting-edge AI research** and large-scale model training
 - **Distributed optimization** and high-performance computing
 - **Enterprise transformation** and digital automation
 - **MLOps** and production machine learning systems
+- **Independent thesis research** with significant technical contributions
 
 ---
 
 **📧 Contact**: [GitHub Profile](https://github.com/adbreeker)
 
-*This repository represents ongoing Master's level coursework in Computer Science with specialization in High Performance Computing and Computational Intelligence at Gdansk University of Technology, demonstrating both theoretical understanding and practical implementation skills across multiple domains developed during Semester 1 (Summer 2025).*
+*This repository represents ongoing Master's level coursework in Computer Science with specialization in High Performance Computing and Computational Intelligence at Gdansk University of Technology, demonstrating both theoretical understanding and practical implementation skills across multiple domains developed during Semesters 1-3 (2025-2026).*
