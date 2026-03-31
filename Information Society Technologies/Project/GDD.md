@@ -109,23 +109,23 @@ This version of chess game will be prepared based on this document, by AI agents
 
 ### Visuals
 1. **Game window:** width-896p height-576p
-2. **Board:** 8x8 white and black squares, 64x64p per square
-3. **Figures:** listed unicode symbols written with 40p font on circle background (yellow, radius of 24p), white bottom, black top
+2. **Board:** 8x8 creamy and brown squares, 64x64p per square
+3. **Figures:** listed figures images (rescaled to 64x64p) from Project/Pieces/ directory, white bottom, black top
 
-| Piece | Symbol | Unicode | HTML (decimal) | HTML (hex) |
-|-------|--------|---------|-----------|------------|
-| white chess king | ♔ | U+2654 | \&#9812; | \&#x2654; |
-| white chess queen | ♕ | U+2655 | \&#9813; | \&#x2655; |
-| white chess rook | ♖ | U+2656 | \&#9814; | \&#x2656; |
-| white chess bishop | ♗ | U+2657 | \&#9815; | \&#x2657; |
-| white chess knight | ♘ | U+2658 | \&#9816; | \&#x2658; |
-| white chess pawn | ♙ | U+2659 | \&#9817; | \&#x2659; |
-| black chess king | ♚ | U+265A | \&#9818; | \&#x265A; |
-| black chess queen | ♛ | U+265B | \&#9819; | \&#x265B; |
-| black chess rook | ♜ | U+265C | \&#9820; | \&#x265C; |
-| black chess bishop | ♝ | U+265D | \&#9821; | \&#x265D; |
-| black chess knight | ♞ | U+265E | \&#9822; | \&#x265E; |
-| black chess pawn | ♟ | U+265F | \&#9823; | \&#x265F; |
+| Name | Icon | Path |
+|------|------|------|
+| White King | <img src="Pieces/WhiteKing.png" width="40"> | Pieces/WhiteKing.png |
+| Black King | <img src="Pieces/BlackKing.png" width="40"> | Pieces/BlackKing.png |
+| White Queen | <img src="Pieces/WhiteQueen.png" width="40"> | Pieces/WhiteQueen.png |
+| Black Queen | <img src="Pieces/BlackQueen.png" width="40"> | Pieces/BlackQueen.png |
+| White Rook | <img src="Pieces/WhiteRook.png" width="40"> | Pieces/WhiteRook.png |
+| Black Rook | <img src="Pieces/BlackRook.png" width="40"> | Pieces/BlackRook.png |
+| White Bishop | <img src="Pieces/WhiteBishop.png" width="40"> | Pieces/WhiteBishop.png |
+| Black Bishop | <img src="Pieces/BlackBishop.png" width="40"> | Pieces/BlackBishop.png |
+| White Knight | <img src="Pieces/WhiteKnight.png" width="40"> | Pieces/WhiteKnight.png |
+| Black Knight | <img src="Pieces/BlackKnight.png" width="40"> | Pieces/BlackKnight.png |
+| White Pawn | <img src="Pieces/WhitePawn.png" width="40"> | Pieces/WhitePawn.png |
+| Black Pawn | <img src="Pieces/BlackPawn.png" width="40"> | Pieces/BlackPawn.png |
 
 4. **Board UI:** possible movement marked with circles (yellow, 8p radius), check marked by highlighting checked square red, last movement marked by highlighting pre and post move squares yellow
 5. **UI panel**: left of the board (with 64p break space), width-256p height-512p
