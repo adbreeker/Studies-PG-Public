@@ -140,7 +140,14 @@ This version of chess game will be prepared based on this document, by AI agents
 4. **White Player UI:**
     - Timer
     - Draw and Resign button
-5. **Footer:** with name and version of used model, number of prompts (updated with each request), year, @adbreeker linking to github.com/adbreeker
+5. **Footer:** with information in rows as follows:
+    - AI model name and version used
+    - Number of prompts and tokens used (only for manual updating at the end)
+    - @adbreeker (linked to github.com/adbreeker) and current year (2026)
+
+**Draw** requests should open an additional UI (announcing who is proposing and who is answering) to "Accept" or "Refuse" the draw.
+
+Only one special state (Win, Draw, Draw proposal, or Resign) should be displayed at a time. All of these announcements should be centered relative to the Board, not the entire game window.
 
 ### Course of the game
 Launching the application should open game window with UI on the left and set chess board with pieces on the right (as described in § Setup and § Visuals).
@@ -154,4 +161,4 @@ Then players take turns (with running time) making moves, consistent of:
 6. Depending on background checks, game should act accordingly (announcing win, giving option for promotion, etc.),
 7. If the game is not finished, turn should be ended, UI updated, and the player to move switched.
 
-In the middle of turns, UI buttons for proposing draw, resigining and reseting the game should be fully accessible.
+In the middle of turns, UI buttons for pausing, proposing draw, resigining and reseting the game should be fully accessible.
