@@ -110,7 +110,7 @@ This version of chess game will be prepared based on this document, by AI agents
 ### Visuals
 1. **Game window:** width-896p height-576p
 2. **Board:** 8x8 white and black squares, 64x64p per square
-3. **Figures:** listed unicode symbols writen with 40p font on circle background (yellow, radius of 24p)
+3. **Figures:** listed unicode symbols writen with 40p font on circle background (yellow, radius of 24p), white bottom, black top
 
 | Piece | Symbol | Unicode | HTML (decimal) | HTML (hex) |
 |-------|--------|---------|-----------|------------|
@@ -133,4 +133,25 @@ This version of chess game will be prepared based on this document, by AI agents
 
 ### UI panel
 1. **Turn:** turn number and who moves (white/black)
-2. 
+2. **Black Player UI:**
+    - Timer
+    - Draw and Resign button
+3. **General UI:** pause/resume and reset buttons
+4. **White Player UI:**
+    - Timer
+    - Draw and Resign button
+5. **Footer:** with name and version of used model, number of prompts (updated with each request), year, @adbreeker linking to github.com/adbreeker
+
+### Course of the game
+Launching the application should open game window with UI on the left and set chess board with pieces on the right (as described in § Setup and § Visuals).
+
+Then players take turns (with running time) making moves, consistent of:
+1. Observe move of oponent (marked visuals of move and potential check),
+2. Choose your figure to move,
+3. See possible movement squares of the figure (including special moves, see § Movement),
+4. Move or choose other figure,
+5. Game should verify checks, check mates, promotions, etc. in the background,
+6. Depending on background checks, game should act acordingly (announcing win, giving option for promotion, etc.),
+7. If the game is not finished, turn should be ended, UI updated, and the player to move switched.
+
+In the middle of turns, UI buttons for proposing draw, resigining and reseting the game should be fully accessible.
