@@ -17,7 +17,7 @@ To start the game, White's pieces are placed on the first rank in the following 
 #### Player turn
 White moves first, after which players alternate turns. One piece is moved per turn (except when castling, during which two pieces are moved). In the diagrams, dots mark the squares to which each type of piece can move if unoccupied by friendly pieces and there are no intervening piece(s) of either color (except the knight, which leaps over any intervening pieces). With the sole exception of en passant, a piece captures an enemy piece by moving to the square it occupies, removing it from play and taking its place. The pawn is the only piece that does not capture the way it moves, and it is the only piece that moves and captures in only one direction (forwards from the player's perspective). A piece is said to control empty squares on which it could capture, attack squares with enemy pieces it could capture, and defend squares with pieces of the same color on which it could recapture. Moving is compulsory; a player may not skip a turn, even when having to move is detrimental
 
-#### Figures move paterns
+#### Figures move patterns
 - **King** moves one square in any direction. There is also a special move called castling which moves the king and a rook. The king is the most valuable piece—it is illegal to play any move that puts one's king under attack by an opponent piece. A move that attacks the king must be parried immediately; if this cannot be done, the game is lost. (See § Check and checkmate.)
     - **Castling:** Kings can castle once per game. Castling consists of moving the king two squares toward either rook of the same color, and then placing the rook on the square that the king crossed. Castling is possible only if the following conditions are met: Neither the king nor the rook has previously moved during the game. There are no pieces between the king and the rook. The king is not in check and does not pass through or finish on a square controlled by an enemy piece. Castling is still permitted if the rook is under attack, or if the rook crosses an attacked square. It is also still permitted if the king had been in check earlier in the game, provided that the check was resolved without moving the king.
 - **Rook** can move any number of squares along a rank or file. A rook is involved in the king's castling move.
@@ -64,43 +64,43 @@ There are several ways a game can end in a draw:
 
 ### King
 1. **Icon:** ♔ / ♚
-2. **Move patern:** Diagonal and Orthogonal, 1 square
-3. **Attack patern:** Same as movement
+2. **Move pattern:** Diagonal and Orthogonal, 1 square
+3. **Attack pattern:** Same as movement
 4. **Special moves:** Castle
 5. **Points worth:** infinity
 
 ### Queen
 1. **Icon:** ♕ / ♛
-2. **Move patern:** Diagonal and Orthogonal, no limits
-3. **Attack patern:** Same as movement
+2. **Move pattern:** Diagonal and Orthogonal, no limits
+3. **Attack pattern:** Same as movement
 4. **Special moves:** None
 5. **Points worth:** 9
 
 ### Rook
 1. **Icon:** ♖ / ♜
-2. **Move patern:** Orthogonal, no limits
-3. **Attack patern:** Same as movement
+2. **Move pattern:** Orthogonal, no limits
+3. **Attack pattern:** Same as movement
 4. **Special moves:** Castle (if initiated by king)
 5. **Points worth:** 5
 
 ### Bishop
 1. **Icon:** ♗ / ♝
-2. **Move patern:** Diagonal, no limits
-3. **Attack patern:** Same as movement
+2. **Move pattern:** Diagonal, no limits
+3. **Attack pattern:** Same as movement
 4. **Special moves:** None
 5. **Points worth:** 3
 
 ### Knight
 1. **Icon:** ♘ / ♞
-2. **Move patern:** L shape, 2 + 1, cannot be blocked
-3. **Attack patern:** Same as movement
+2. **Move pattern:** L shape, 2 + 1, cannot be blocked
+3. **Attack pattern:** Same as movement
 4. **Special moves:** None
 5. **Points worth:** 3
 
 ### Pawn
 1. **Icon:** ♙ / ♟
-2. **Move patern:** Orthogonaly forward, 1 square or 2 square in first move
-3. **Attack patern:** Diagonaly forward, 1 square
+2. **Move pattern:** Orthogonally forward, 1 square or 2 square in first move
+3. **Attack pattern:** Diagonally forward, 1 square
 4. **Special moves:** En passant, Promotion
 5. **Points worth:** 1
 
@@ -110,7 +110,7 @@ This version of chess game will be prepared based on this document, by AI agents
 ### Visuals
 1. **Game window:** width-896p height-576p
 2. **Board:** 8x8 white and black squares, 64x64p per square
-3. **Figures:** listed unicode symbols writen with 40p font on circle background (yellow, radius of 24p), white bottom, black top
+3. **Figures:** listed unicode symbols written with 40p font on circle background (yellow, radius of 24p), white bottom, black top
 
 | Piece | Symbol | Unicode | HTML (decimal) | HTML (hex) |
 |-------|--------|---------|-----------|------------|
@@ -127,7 +127,7 @@ This version of chess game will be prepared based on this document, by AI agents
 | black chess knight | ♞ | U+265E | \&#9822; | \&#x265E; |
 | black chess pawn | ♟ | U+265F | \&#9823; | \&#x265F; |
 
-4. **Board UI:** possible movement marked with circles (yellow, 8p radius), check marked by highlithing checked squre red, last movement marked by highlighing pre and post move squres yellow
+4. **Board UI:** possible movement marked with circles (yellow, 8p radius), check marked by highlighting checked square red, last movement marked by highlighting pre and post move squares yellow
 5. **UI panel**: left of the board (with 64p break space), width-256p height-512p
 6. **Margins:** 32p each side
 
@@ -151,7 +151,7 @@ Then players take turns (with running time) making moves, consistent of:
 3. See possible movement squares of the figure (including special moves, see § Movement),
 4. Move or choose other figure,
 5. Game should verify checks, check mates, promotions, etc. in the background,
-6. Depending on background checks, game should act acordingly (announcing win, giving option for promotion, etc.),
+6. Depending on background checks, game should act accordingly (announcing win, giving option for promotion, etc.),
 7. If the game is not finished, turn should be ended, UI updated, and the player to move switched.
 
 In the middle of turns, UI buttons for proposing draw, resigining and reseting the game should be fully accessible.
