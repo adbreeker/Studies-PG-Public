@@ -441,7 +441,7 @@ class ChessGame:
         
         # Footer
         self.screen.blit(FONT_SMALL.render("AI: Gemini 3.1 Pro", True, (150,150,150)), (UI_MARGIN_X + 5, UI_MARGIN_Y + 462))
-        self.screen.blit(FONT_SMALL.render("Prompts: 3 | Tokens: 1123267", True, (150,150,150)), (UI_MARGIN_X + 5, UI_MARGIN_Y + 478))
+        self.screen.blit(FONT_SMALL.render("Prompts: 3 | Tokens: 1 123 267", True, (150,150,150)), (UI_MARGIN_X + 5, UI_MARGIN_Y + 478))
         self.screen.blit(FONT_SMALL.render("@adbreeker 2026", True, (150,150,150)), (UI_MARGIN_X + 5, UI_MARGIN_Y + 494))
 
     def draw_board(self):

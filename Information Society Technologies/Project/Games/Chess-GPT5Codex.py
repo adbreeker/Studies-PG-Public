@@ -941,7 +941,7 @@ class ChessGame:
 		footer_y = PANEL_Y + 450
 		footer_lines = [
 			"Model: GPT-5.3-Codex",
-			"Prompts/Tokens: 2 / 900157",
+			"Prompts/Tokens: 2 / 900 157",
 			"@adbreeker 2026",
 		]
 		for i, line in enumerate(footer_lines):

@@ -528,7 +528,7 @@ class ChessGame:
         self.promotion_pos = None
         self.games_played = 0
         self.total_prompts = 9
-        self.total_tokens = 7947344
+        self.total_tokens = '7 947 344'
         self.draw_proposer = None
         self.paused = False
         self.pause_time = 0

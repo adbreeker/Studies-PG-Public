@@ -428,7 +428,7 @@ def draw_ui(screen):
         text_rect = text_surf.get_rect(center=(x + w//2, y + h//2))
         screen.blit(text_surf, text_rect)
     # Footer
-    footer_lines = ["Grok Code Fast 1", "Prompts: 6, Tokens: 3430780", "@adbreeker 2026"]
+    footer_lines = ["Grok Code Fast 1", "Prompts: 6, Tokens: 3 430 780", "@adbreeker 2026"]
     for i, line in enumerate(footer_lines):
         screen.blit(small_font.render(line, True, BLACK), (MARGIN + 10, HEIGHT - MARGIN - 20 * (len(footer_lines) - i)))
     # Game state messages
