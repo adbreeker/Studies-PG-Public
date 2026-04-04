@@ -54,7 +54,7 @@ Despite higher statistics, Claude Haiku delivered satisfying results in both mec
 
 | Aspect | Details |
 |--------|---------|
-| **Advantages** | • Quick and responsive execution<br>• Handled corrections well<br>• Satisfying mechanical implementation<br>• 3x cheaper than top-tier models<br>• Good visual design |
+| **Advantages** | • Quick and responsive execution<br>• Handled corrections well<br>• Satisfying mechanical implementation<br>• 3x cheaper than top-tier models<br>• Acceptable visual design |
 | **Disadvantages** | • Introduced several smaller bugs initially<br>• Required more prompts than optimal performers |
 
 ---
@@ -86,7 +86,7 @@ Grok Code Fast quickly reached a playable state with minimal issues. However, th
 
 | Aspect | Details |
 |--------|---------|
-| **Advantages** | • Fewest tokens among paid models<br>• Rapid path to playable state<br>• Minimal issues requiring correction<br>• Strong mechanical foundation |
+| **Advantages** | • Lowest price among paid models<br>• Rapid path to playable state<br>• Minimal game breaking issues requiring correction<br>• Strong mechanical foundation |
 | **Disadvantages** | • Poorest visual aesthetics of all models<br>• Lacks visual polish and design sense<br>• Limited range of use for visually-focused projects |
 
 ---
@@ -118,8 +118,8 @@ Despite longer processing times, GPT-5.3-Codex delivered the most impressive out
 
 | Aspect | Details |
 |--------|---------|
-| **Advantages** | • Fewest prompts required (2)<br>• Outstanding final visuals and mechanics<br>• Creative implementation features not seen in other models<br>• Minimal token usage relative to output quality<br>• Efficient problem-solving |
-| **Disadvantages** | • Longer wait times per response<br>• Single error encountered during execution |
+| **Advantages** | • Fewest total prompts required (2)<br>• Outstanding final visuals and mechanics<br>• Creative implementation features not seen in other models<br>• Minimal token usage relative to output quality<br>• Efficient problem-solving |
+| **Disadvantages** | • Quite long wait times per response |
 
 ---
 
@@ -137,7 +137,7 @@ Despite longer processing times, GPT-5.3-Codex delivered the most impressive out
 
 **Results Description:**
 
-Gemini faced initial challenges with VS Code tool usage and file manipulation, resorting to workarounds like requesting console commands instead of direct file editing. However, after a single corrective prompt addressing specific issues, it fixed all problems and delivered good results within acceptable parameters.
+Gemini faced initial challenges with VS Code tool usage and file manipulation, resorting to workarounds like requesting console commands instead of direct file editing. However, after a single corrective prompt addressing specific issues, it recovered from all major problems, and with the second prompt left the game in polished state.
 
 **Final Look:**
 
@@ -151,7 +151,7 @@ Gemini faced initial challenges with VS Code tool usage and file manipulation, r
 | Aspect | Details |
 |--------|---------|
 | **Advantages** | • Only 3 prompts needed for satisfying result<br>• Good visual design upon correction<br>• Solid mechanical implementation<br>• Recovered well from initial setbacks |
-| **Disadvantages** | • Poor initial tool usage with VS Code<br>• Attempted workarounds (shell commands, external scripts)<br>• Initial output contained severe bugs (e.g., allowing king capture)<br>• Single error during execution |
+| **Disadvantages** | • Poor initial tool usage with VS Code<br>• Attempted workarounds (shell commands, external scripts)<br>• Initial output contained severe bugs (e.g., allowing king capture) |
 
 ---
 
@@ -165,7 +165,9 @@ Gemini faced initial challenges with VS Code tool usage and file manipulation, r
 - **Errors:** 0
 - **Total Events:** 415
 
-**Status:** **EXPERIMENT ABORTED** due to lack of improvement over multiple iterations.
+**EXPERIMENT ABORTED** due to lack of improvement over multiple iterations.
+
+**Implementation:** [Chess-RaptorMini.py](Games/Chess-RaptorMini.py)
 
 **Results Description:**
 
@@ -185,7 +187,7 @@ Raptor mini showed promise initially but encountered persistent difficulties wit
 | Aspect | Details |
 |--------|---------|
 | **Advantages** | • Fastest response times of all models<br>• Excellent with precise, specific requirements<br>• Free to use (no cost)<br>• Good for targeted inline completions |
-| **Disadvantages** | • Requires 20+ prompts (unacceptable iteration count)<br>• Higher token usage than most paid models<br>• Poor imagination and creativity<br>• Difficulties with VS Code tool integration<br>• Gets stuck on generic issue descriptions<br>• Cannot autonomously complete complex tasks |
+| **Disadvantages** | • Poor imagination and creativity<br>• Difficulties with VS Code tool integration<br>• Gets stuck on generic issue descriptions<br>• Cannot autonomously complete complex tasks |
 
 ---
 
@@ -201,8 +203,8 @@ Raptor mini showed promise initially but encountered persistent difficulties wit
 
 ### A-Tier
 **Gemini 3.1 Pro**
-- Recovered well from initial struggles with only 1 corrective prompt (3 prompts in total)
-- Final result is very good with proper visuals
+- Recovered well from initial struggles with low amount of prompts (3)
+- Final result is good with proper visuals
 - Mechanical soundness achieved quickly
 - Tool usage improved after guidance
 - Cost-effective with minimal prompts needed
@@ -212,7 +214,7 @@ Raptor mini showed promise initially but encountered persistent difficulties wit
 - 3x cheaper than top models while delivering comparable quality
 - Good balance of speed, cost, and mechanical/visual quality
 - Handles corrections well
-- Ideal for iterative development
+- Good for iterative development
 
 ### B-Tier
 **Raptor mini**
@@ -235,7 +237,7 @@ Raptor mini showed promise initially but encountered persistent difficulties wit
 | Model | Recommendation | Best For |
 |-------|-----------------|----------|
 | **GPT-5.3-Codex** | ⭐⭐⭐⭐⭐ | Complex creative tasks, visual applications, high-quality outputs |
-| **Gemini 3.1 Pro** | ⭐⭐⭐⭐ | Balanced productivity, good quality, reasonable cost |
+| **Gemini 3.1 Pro** | ⭐⭐⭐⭐ | Balanced productivity, good quality in reasonable time |
 | **Claude Haiku 4.5** | ⭐⭐⭐⭐ | Cost-effective iteration, responsive feedback loops |
 | **Raptor mini** | ⭐⭐⭐ | Precise tasks, inline completions, budget projects |
 | **Grok Code Fast 1** | ⭐⭐⭐ | Baseline functionality only, not recommended for game development |
@@ -261,4 +263,5 @@ The findings from this chess game experiment will contribute to comprehensive gu
 - **[Chess-GrokCodeFast.py](Games/Chess-GrokCodeFast.py)** - Grok Code Fast 1 implementation
 - **[Chess-GPT5Codex.py](Games/Chess-GPT5Codex.py)** - GPT-5.3-Codex implementation
 - **[Chess-GeminiPro.py](Games/Chess-GeminiPro.py)** - Gemini 3.1 Pro implementation
+- **[Chess-RaptorMini.py](Games/Chess-RaptorMini.py)** - Raptor mini implementation
 
