@@ -14,10 +14,10 @@ This repository contains coursework from my ongoing Master's studies in Computer
 
 | Course/Project | Technologies | Focus Area |
 |---------|-------------|------------|
-| [Advanced AI Technics](#-advanced-ai-technics) | Python, PyTorch, Transformers, HuggingFace | Large Language Models, PEFT, NLP |
+| [Advanced AI Technics](#-advanced-ai-technics) | Python, PyTorch, Transformers, PEFT, PyG | LLMs, PEFT, NLP, Graph Learning |
 | [Automation of Business Processes](#-automation-of-business-processes) | ArchiMate, BPMN, Visual Paradigm | Enterprise Architecture, Process Modeling |
 | Foundations of Capital Markets | Finance & Economics | Investment Analysis, Market Dynamics |
-| [High Availability Distributed Systems](#-high-availability-distributed-systems) | .NET Core, React, Docker, PostgreSQL | Microservices, CQRS, SAGA, Event Sourcing |
+| [High Availability Distributed Systems](#-high-availability-distributed-systems) | .NET Core, React, Java Spring Boot, Docker, PostgreSQL | Microservices, CQRS, SAGA, Event Sourcing |
 | [High Performance Computing Systems](#-high-performance-computing-systems) | C, MPI, OpenMP, CUDA | Parallel Computing, GPU Programming |
 | [Multi-Objective Optimization Algorithms](#-multi-objective-optimization-algorithms) | Python, C++, Pymoo, Paradiseo | Evolutionary Algorithms, NSGA-II, MOEA/D |
 | Operational Research | Mathematical Optimization | Optimization Algorithms & Decision Making |
@@ -33,13 +33,13 @@ This repository contains coursework from my ongoing Master's studies in Computer
 | Course | Technologies | Focus Area |
 |---------|-------------|------------|
 | [Deep Learning in Computer Vision](#-deep-learning-in-computer-vision) | Python, TensorFlow, Keras, CNN | Image Classification, Convolutional Networks |
-| [Elements of Bioinformatics](#-elements-of-bioinformatics) | Python, Biopython, Bioinformatics Tools | DNA/RNA Analysis, Protein Structure |
+| [Elements of Bioinformatics](#-elements-of-bioinformatics) | Python, Biopython, Matplotlib | Sequence Algorithms, Alignment, Assembly, Phylogeny |
 | Intelligent Information Services | Information Systems | Knowledge Management & Service Architecture |
-| [Modeling and Simulation of Systems](#-modeling-and-simulation-of-systems) | Python, Simulation Tools | Discrete Event Simulation, System Dynamics |
-| [Parallel Programming for Multi-Core Architectures](#-parallel-programming-for-multi-core-architectures) | C, OpenMP, MPI | Shared Memory & Distributed Computing |
+| [Modeling and Simulation of Systems](#-modeling-and-simulation-of-systems) | Python, NumPy, SciPy, Matplotlib | Numerical Modeling, Dynamics, PDE, Interpolation |
+| [Parallel Programming for Multi-Core Architectures](#-parallel-programming-for-multi-core-architectures) | C/C++, CUDA, OpenMP, Make | GPU/CPU Parallel Performance Engineering |
 | Physical Layer Security | Security Engineering | Cryptography & Physical Security |
 | Software Licensing | Legal & Business | Intellectual Property & License Management |
-| [Team Strategies](#-team-strategies) | Enterprise Planning | Organizational Strategy & Team Development |
+| [Team Strategies](#-team-strategies) | C++, Python, Metaheuristics | Swarm Intelligence, Algorithm Comparison |
 
 ---
 
@@ -76,17 +76,17 @@ Comprehensive independent research project showcasing deep technical expertise, 
 
 ## 🤖 Advanced AI Technics
 
-**Modern transformer architectures and parameter-efficient fine-tuning techniques**
+**Hands-on AI labs focused on transformer NLP workflows with an additional graph-learning module.**
 
-- **Large Language Models**: GPT-2, Mistral-7B, Llama-3.2, Zephyr-7B
-- **Fine-tuning Methods**: LoRA, quantization, PEFT techniques
-- **NLP Applications**: Sentiment analysis, named entity recognition, RAG systems
-- **Key Technologies**: PyTorch, Transformers, HuggingFace, PEFT
+- **LLM Workflows**: GPT-2 generation, Mistral 4-bit inference, LoRA/PEFT with Llama
+- **Task Pipelines**: Sentiment analysis, NER, and a compact RAG implementation
+- **Graph Learning Lab**: Cora node classification with MLP/GCN/GAT (PyTorch Geometric)
+- **Key Technologies**: PyTorch, Transformers, PEFT, Datasets, Sentence Transformers, PyG
 
 ### Highlights
-- 7 comprehensive labs covering text generation to RAG implementation
-- Parameter-efficient fine-tuning reducing trainable parameters by 90%+
-- Real-world applications in chatbots, content moderation, and knowledge systems
+- 7 labs spanning generation, quantization, PEFT, supervised NLP, and RAG
+- Practical Hugging Face ecosystem usage across notebook and script workflows
+- Coverage of both text modeling and graph-based training strategies
 
 **🔗 [Explore Advanced AI Technics →](./Advanced%20Ai%20Technics/)**
 
@@ -151,18 +151,18 @@ Comprehensive independent research project showcasing deep technical expertise, 
 
 ## 🏢 Automation of Business Processes
 
-**Enterprise architecture modeling and business process automation using industry standards**
+**Business process analysis and redesign artifacts created in Visual Paradigm.**
 
 - **Modeling Standards**: ArchiMate 3.0, BPMN 2.0, TOGAF
 - **Analysis Methods**: As-Is/To-Be process modeling, gap analysis
-- **Tools**: Visual Paradigm, enterprise architecture frameworks
-- **Deliverables**: Process models, automation strategy, implementation roadmap
+- **Core Deliverables**: original and modified `.vpp` process models
+- **Documentation**: conclusions report available in both PDF and DOCX formats
+- **Tools**: Visual Paradigm, BPMN/ArchiMate modeling views
 
 ### Project Scope
-- Complete business process transformation from manual to automated workflows
-- Comprehensive viewpoint analysis (business, application, technology layers)
-- Process simulation and performance optimization
-- Strategic automation recommendations with ROI analysis
+- Baseline process capture in `s207250-Original.vpp`
+- Improved process variant in `s207250-Modified.vpp`
+- Structured conclusions and change summary in accompanying report files
 
 **🔗 [Explore Business Process Automation →](./Automation%20of%20Business%20Processes/)**
 
@@ -227,18 +227,17 @@ Comprehensive independent research project showcasing deep technical expertise, 
 
 ### 📊 Modeling and Simulation of Systems
 
-**Discrete event simulation, stochastic modeling, and system dynamics analysis**
+**Numerical simulation labs covering mechanics, PDEs, and interpolation methods.**
 
-- **Simulation Methods**: Discrete event simulation, Monte Carlo methods
-- **System Dynamics**: Population models, resource allocation, queuing systems
-- **Analysis Tools**: Python simulation frameworks, statistical analysis
-- **Applications**: Business process simulation, resource optimization
+- **Lab 1**: projectile trajectories with obstacle constraints (Monte Carlo parameter search)
+- **Lab 2**: body reflections on a curved surface with/without energy losses
+- **Lab 3**: finite-difference solution of string vibration (damped and undamped)
+- **Lab 4**: radial basis function interpolation with beta optimization
 
-### Lab Coverage
-- Lab 1: Discrete event simulation fundamentals
-- Lab 2: Stochastic processes and probability distributions
-- Lab 3: Complex system interactions and feedback loops
-- Lab 4: Real-world system modeling and analysis
+### Technical Focus
+- Python-based scientific computing (`numpy`, `scipy`, `matplotlib`)
+- Dynamic system modeling and visualization
+- Parameter sensitivity and numerical comparison workflows
 
 **🔗 [Explore Modeling & Simulation →](./Modeling%20and%20Simulation%20of%20Systems/)**
 
@@ -246,19 +245,18 @@ Comprehensive independent research project showcasing deep technical expertise, 
 
 ### ⚙️ Parallel Programming for Multi-Core Architectures
 
-**Advanced parallel programming techniques for modern multi-core and distributed systems**
+**Performance-focused parallel implementations on GPU (CUDA) and CPU (OpenMP).**
 
-- **Shared Memory Programming**: OpenMP directives, thread synchronization, work distribution
-- **Distributed Computing**: MPI message passing, collective communication
-- **Performance Analysis**: Speedup metrics, efficiency analysis, scalability studies
-- **Technologies**: C, OpenMP, MPI, performance profiling tools
+- **CUDA Labs**: average/histogram kernels, streams, dynamic parallelism quicksort, prime checking, multi-matrix multiplication
+- **OpenMP Labs**: histogram race-condition handling, parallel quicksort
+- **Final Project**: OpenMP vs CUDA matrix multiplication benchmark (single-thread, unoptimized, optimized)
+- **Tooling**: Make-based compile/run/compare workflows with timing comparison scripts
 
 ### Labs Overview
-- Shared memory parallelization with OpenMP
-- Distributed memory programming with MPI
-- Hybrid parallel approaches combining OpenMP and MPI
-- Performance optimization and scaling analysis
-- Real-world algorithms: sorting, matrix operations, stencil computations
+- CUDA memory model comparisons (raw/shared/unified)
+- Stream and dynamic-parallelism experiments
+- CPU parallel patterns with OpenMP
+- End-to-end benchmarking across implementations
 
 **🔗 [Explore Parallel Programming →](./Parallel%20Programming%20for%20Multi-Core%20Architectures/)**
 
@@ -266,18 +264,17 @@ Comprehensive independent research project showcasing deep technical expertise, 
 
 ### 📋 Team Strategies
 
-**Strategic team planning, organizational development, and collaborative leadership**
+**Research-oriented optimization study on discovering effective Shellsort gap sequences.**
 
-- **Strategic Planning**: Vision development, objective setting, roadmap creation
-- **Team Dynamics**: Role definition, communication strategies, conflict resolution
-- **Organizational Structure**: Hierarchies, decision-making processes, accountability
-- **Project Management**: Resource allocation, timeline management, risk assessment
+- **Algorithms Compared**: modified Genetic Algorithm, modified Cuckoo Search, Artificial Bee Colony
+- **Experiment Setup**: large iterative search with operation-count fitness
+- **Output Artifacts**: generated sequence sets, convergence analysis, and comparison plots
+- **Implementation**: C++ optimization logic plus Python analysis/visualization scripts
 
 ### Project Components
-- Strategic analysis and competitive positioning
-- Team structure and role optimization
-- Process improvement and workflow design
-- Performance metrics and evaluation frameworks
+- Multi-algorithm benchmark over thousands of populations
+- Sequence quality and convergence pattern analysis
+- Comparative report with strengths, weaknesses, and future tuning directions
 
 **🔗 [Explore Team Strategies →](./Team%20Strategies/)**
 
