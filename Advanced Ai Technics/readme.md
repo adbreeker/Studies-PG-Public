@@ -1,183 +1,164 @@
 # Advanced AI Technics
 
-This repository contains practical implementations and exercises exploring cutting-edge AI techniques, focusing on modern transformer architectures, fine-tuning methods, and advanced NLP applications.
+This repository contains hands-on labs for modern AI workflows, centered on transformer-based NLP and one graph-learning lab using PyTorch Geometric.
 
-## 🎯 Course Objectives
+The material moves from text generation and model compression, through PEFT fine-tuning, to downstream tasks such as sentiment analysis, NER, and a simple RAG pipeline.
 
-- Master transformer-based language models and their applications
-- Understand and implement Parameter-Efficient Fine-Tuning (PEFT) techniques
-- Develop expertise in sentiment analysis and named entity recognition
-- Explore Retrieval-Augmented Generation (RAG) systems
-- Apply quantization and optimization techniques for efficient model deployment
-- Gain hands-on experience with HuggingFace ecosystem
+## 🎯 Course Scope
+
+- Transformer text generation and prompting
+- 4-bit quantization for large language models
+- PEFT/LoRA fine-tuning workflows
+- Graph node classification (Cora, GCN/GAT/MLP)
+- Sentiment analysis and token classification
+- Retrieval-Augmented Generation with embeddings + generation model
+
+## 📁 Repository Structure
+
+```text
+lab1/  Lab1.ipynb
+lab2/  Lab2.ipynb
+lab3/  Lab3.ipynb
+lab4/  data_processing.py, models.py, full_batch_training.py, sampling_training.py
+lab5/  Lab5.ipynb, Lab5_Experiments.ipynb, lab5.py
+lab6/  lab6.ipynb, lab6.py
+lab7/  lab7.ipynb, lab7.py
+```
 
 ## 📋 Prerequisites
 
-- **Software Requirements:**
-  - Python 3.8+
-  - PyTorch
-  - Transformers library (HuggingFace)
-  - PEFT (Parameter-Efficient Fine-Tuning)
-  - Datasets library
-  - CUDA-capable GPU (recommended)
-  - Jupyter Notebook
+### Software
 
-- **Knowledge Requirements:**
-  - Strong Python programming skills
-  - Understanding of neural networks and deep learning
-  - Familiarity with NLP concepts
-  - Basic knowledge of transformer architectures
+- Python 3.8+
+- Jupyter Notebook
+- CUDA-capable GPU (recommended for larger models)
+
+### Core Python Libraries
+
+- torch
+- transformers
+- datasets
+- peft
+- trl
+- bitsandbytes
+- sentence-transformers
+- evaluate
+- seqeval
+- spacy
+- torch-geometric
 
 ## 🧪 Labs Overview
 
-### Lab 1: Text Generation with GPT Models
-**Objective:** Introduction to large language models and text generation
-- Loading and using pre-trained GPT-2 models
-- Text generation with different decoding strategies
-- Understanding model architecture and parameters
-- Performance analysis and GPU utilization
+### Lab 1: Text Generation with GPT-2
 
-**Key Models:** GPT-2 Large
-**Key Concepts:** Autoregressive generation, tokenization, model loading
+Objective:
+- Intro to causal language models and generation behavior.
 
-### Lab 2: Model Quantization and Optimization
-**Objective:** Efficient model deployment using quantization techniques
-- 4-bit quantization with BitsAndBytesConfig
-- Memory optimization strategies
-- Chat template formatting and conversation handling
-- Model compression trade-offs
+What is implemented:
+- Loading `openai-community/gpt2-large`
+- Tokenization and text generation
+- Basic generation experimentation with Hugging Face APIs
 
-**Key Models:** Mistral-7B
-**Key Concepts:** `BitsAndBytesConfig`, `load_in_4bit`, memory management
+Key model:
+- GPT-2 Large
 
-### Lab 3: Parameter-Efficient Fine-Tuning (PEFT) with LoRA
-**Objective:** Advanced fine-tuning techniques for large models
-- Low-Rank Adaptation (LoRA) implementation
-- Supervised Fine-Tuning (SFT) with custom datasets
-- Training loop optimization and monitoring
-- Model merging and deployment
+### Lab 2: Quantization and Prompt Formatting
 
-**Key Models:** Llama-3.2-1B
-**Key Concepts:** `LoraConfig`, `PeftModel`, `SFTTrainer`, target modules
+Objective:
+- Run larger models with reduced memory footprint.
 
-### Lab 4: Multi-Model Training Strategies
-**Objective:** Advanced training techniques and data processing
-- Full batch vs. sampling training approaches
-- Custom data processing pipelines
-- Model comparison and evaluation
-- Training efficiency optimization
+What is implemented:
+- Loading `mistralai/Mistral-7B-v0.1`
+- 4-bit quantization via `BitsAndBytesConfig(load_in_4bit=True)`
+- Chat template formatting (`apply_chat_template`)
+- PEFT adapter loading for inference
 
-**Key Components:** `data_processing.py`, `models.py`, `full_batch_training.py`, `sampling_training.py`
+Key model:
+- Mistral-7B
 
-### Lab 5: Sentiment Analysis with BERT
-**Objective:** Fine-tuning BERT for sequence classification
-- IMDB dataset processing and tokenization
-- BERT fine-tuning for binary sentiment classification
-- Hyperparameter experimentation and optimization
-- Model evaluation and inference pipeline
+### Lab 3: PEFT Fine-Tuning with LoRA
 
-**Key Models:** BERT-base-uncased, DistilBERT
-**Key Concepts:** `AutoModelForSequenceClassification`, `Trainer`, evaluation metrics
+Objective:
+- Explore parameter-efficient fine-tuning on a causal LM.
+
+What is implemented:
+- LoRA config setup (`LoraConfig`)
+- PEFT wrapping (`PeftModel` / `get_peft_model`)
+- SFT workflow (`SFTTrainer`)
+- Quantized base model loading
+
+Key model:
+- Llama-3.2-1B (gated model; access may be required)
+
+### Lab 4: Graph Model Training Strategies (PyG)
+
+Objective:
+- Compare full-batch and sampled training on graph data.
+
+What is implemented:
+- Cora dataset loading via `Planetoid`
+- Model classes for MLP/GCN/GAT in `models.py`
+- Full-batch training script
+- Sampling-based training script with `NeighborLoader`
+
+Current status note:
+- Parts of Lab 4 are scaffold-style templates (marked with placeholders), so this lab is currently less complete than Labs 1-3 and 5-7.
+
+### Lab 5: Sentiment Analysis
+
+Objective:
+- Fine-tune transformer classifiers on movie reviews.
+
+What is implemented:
+- IMDB dataset (`stanfordnlp/imdb`)
+- BERT fine-tuning in `lab5.py`
+- Additional experiments notebook using DistilBERT
+- Evaluation + inference examples
+
+Key models:
+- `bert-base-uncased`
+- `distilbert-base-uncased` (experiments)
 
 ### Lab 6: Named Entity Recognition (NER)
-**Objective:** Token classification with transformer models
-- CoNLL-2003 NER dataset processing
-- Token-level classification and label alignment
-- Sequence evaluation metrics (precision, recall, F1)
-- Handling tokenization misalignment
 
-**Key Models:** BERT for token classification
-**Key Concepts:** `BertForTokenClassification`, `seqeval`, token alignment
+Objective:
+- Train and evaluate token classification with label alignment.
+
+What is implemented:
+- WNUT-17 dataset (`wnut_17`)
+- Subword-to-label alignment handling (`-100` masking)
+- `AutoModelForTokenClassification`
+- Metrics with `seqeval`
+- Optional visualization with spaCy displacy
 
 ### Lab 7: Retrieval-Augmented Generation (RAG)
-**Objective:** Building intelligent question-answering systems
-- Document chunking and embedding generation
-- Semantic similarity search and retrieval
-- Context-aware response generation
-- End-to-end RAG pipeline implementation
 
-**Key Models:** Zephyr-7B-beta, sentence transformers
-**Key Concepts:** Embeddings, similarity search, context injection
+Objective:
+- Build a minimal end-to-end retrieval + generation pipeline.
 
-## 📊 Key Technical Concepts
+What is implemented:
+- Source corpus: `tcltcl/small-simple-wikipedia`
+- Text chunking with overlap
+- Embedding model: `all-MiniLM-L6-v2`
+- Similarity-based retrieval of best chunk
+- Response generation with `HuggingFaceH4/zephyr-7b-beta`
 
-### Model Architectures
-- **GPT-2/GPT-3 Family:** Autoregressive language models
-- **BERT Family:** Bidirectional encoder representations
-- **Llama/Mistral:** State-of-the-art instruction-following models
-- **Zephyr:** Optimized chat models
+## 🔧 Practical Notes
 
-### Fine-Tuning Techniques
-- **Full Fine-Tuning:** Complete model parameter updates
-- **LoRA (Low-Rank Adaptation):** Efficient parameter updates
-- **Quantization:** 4-bit and 8-bit model compression
-- **PEFT:** Parameter-efficient training methods
-
-### NLP Tasks Covered
-- **Text Generation:** Creative writing, completion
-- **Sentiment Analysis:** Binary and multi-class classification
-- **Named Entity Recognition:** Token-level classification
-- **Question Answering:** Retrieval-augmented generation
-
-## 🔧 Advanced Features
-
-### Memory Optimization
-- Gradient checkpointing for reduced memory usage
-- Mixed precision training (FP16/BF16)
-- Model sharding and parallelization
-- Efficient data loading and batching
-
-### Evaluation Metrics
-- **Classification:** Accuracy, precision, recall, F1-score
-- **Generation:** Perplexity, BLEU score
-- **NER:** Entity-level F1, sequence evaluation
-- **RAG:** Retrieval accuracy, generation quality
-
-### Hyperparameter Tuning
-- Learning rate scheduling
-- Batch size optimization
-- Training epoch selection
-- Regularization techniques
+- Labs 1-3 are primarily notebook-driven.
+- Labs 5-7 have both notebook and script variants.
+- Some models are large/gated, so login/authentication and sufficient VRAM may be needed.
+- No dedicated `requirements.txt` is currently included in this folder; install dependencies manually based on the list above.
 
 ## 📈 Learning Progression
 
-1. **Foundation** → Understanding transformer architectures
-2. **Optimization** → Model compression and quantization
-3. **Fine-Tuning** → PEFT and LoRA techniques
-4. **Applications** → Sentiment analysis and NER
-5. **Advanced Systems** → RAG and multi-modal AI
+1. Transformer basics and generation
+2. Efficient inference through quantization
+3. PEFT/LoRA fine-tuning patterns
+4. Graph learning training modes (full batch vs sampling)
+5. Supervised NLP tasks (classification + NER)
+6. Retrieval-augmented QA pipeline construction
 
-## 🛠 Performance Considerations
+## 📝 Summary
 
-### GPU Memory Management
-- Model quantization reduces memory by 50-75%
-- LoRA reduces trainable parameters by 90%+
-- Gradient accumulation enables larger effective batch sizes
-- Mixed precision training improves speed
-
-### Training Efficiency
-- Use of data collators for efficient batching
-- Learning rate warmup and decay schedules
-- Early stopping and best model checkpointing
-- Distributed training support
-
-## 📚 Key Libraries and Tools
-
-- **🤗 Transformers:** Model loading and inference
-- **🤗 Datasets:** Efficient data processing
-- **🤗 PEFT:** Parameter-efficient fine-tuning
-- **🤗 Accelerate:** Distributed training
-- **Torch:** Deep learning framework
-- **Evaluate:** Metric computation
-
-## 💡 Real-World Applications
-
-- **Chatbots and Virtual Assistants:** Using instruction-tuned models
-- **Content Moderation:** Sentiment analysis for social media
-- **Information Extraction:** NER for document processing
-- **Knowledge Systems:** RAG for intelligent Q&A
-- **Text Analytics:** Large-scale document analysis
-
----
-
-**Note:** This repository demonstrates state-of-the-art AI techniques through practical implementations. Each lab builds upon previous concepts while introducing new methodologies, providing comprehensive experience with modern AI systems.
+This repository documents practical AI coursework with emphasis on implementation and experimentation using Hugging Face and PyTorch ecosystems, plus graph-learning extensions in PyG.
