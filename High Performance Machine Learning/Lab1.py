@@ -5,6 +5,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "Qwen/Qwen3-4B-Thinking-2507"
 device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"\nUsing {device.upper()} for inference.")
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(model_name, device_map=device, trust_remote_code=True)
 
