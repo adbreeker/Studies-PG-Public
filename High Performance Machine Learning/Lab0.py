@@ -18,42 +18,45 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 print(f"\nLoading model in fp32...")
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    dtype=torch.float32, 
+    dtype=torch.float16, 
     device_map=device
 )
 
 # 4. Write prompt that has exactly 20 tokens.
 raw_text = "In this laboratory exercise, we are going to explore the fundamental principles of running large language models locally using PyTorch."
-encoded_inputs = tokenizer(raw_text, return_tensors="pt")
+messages = [
+    {"role": "user", "content": raw_text}
+]
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True,
+)
+encoded_inputs = tokenizer([text], return_tensors="pt")
 
 input_ids = encoded_inputs.input_ids[:, :20].to(device)
-attention_mask = encoded_inputs.attention_mask[:, :20].to(device)
 
 token_count = input_ids.shape[1]
 print(f"\nPrompt token count: {token_count}")
-assert token_count == 20, "Error: Prompt does not have exactly 20 tokens."
 
 actual_prompt = tokenizer.decode(input_ids[0])
 print(f"Actual prompt used: '{actual_prompt}'")
 
 # 4. Learn about parameters of generate function and set them so that you are doing the same amount of computation each time.
-fixed_generation_length = 50
-
+fixed_generation_length = 20
 generate_params = {
     "input_ids": input_ids,
-    "attention_mask": attention_mask,
-    "max_new_tokens": fixed_generation_length, # max_new_tokens = min_new_tokens (Forces the model to generate exactly X tokens, ignoring early stopping constraints).
-    "min_new_tokens": fixed_generation_length, # max_new_tokens = min_new_tokens 
-    "do_sample": False, # do_sample=False (Greedy decoding removes randomness).
-    "pad_token_id": tokenizer.eos_token_id # Prevents padding warnings
+    "temperature" : 0,
+    "max_new_tokens": fixed_generation_length, 
+    "min_new_tokens": fixed_generation_length, 
+    "do_sample": False, 
 }
 
 # 2. Run the generate function by yourself.
 print("\nRunning generation...")
-with torch.no_grad(): # Disable gradient calculation for inference
+with torch.no_grad():
     output_ids = model.generate(**generate_params)
 
-# The output includes the prompt tokens. We can slice them off if we only want the new text.
 generated_ids = output_ids[0]
 generated_text = tokenizer.decode(generated_ids, skip_special_tokens=True)
 
