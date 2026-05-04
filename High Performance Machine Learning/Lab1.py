@@ -4,10 +4,10 @@ from torch.profiler import profile, record_function, ProfilerActivity
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "Qwen/Qwen3-4B-Thinking-2507"
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu" if torch.cuda.is_available() else "cpu"
 print(f"\nUsing {device.upper()} for inference.")
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained(model_name, device_map=device, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.float16,  device_map=device, trust_remote_code=True)
 
 #Task 1: Model Parameter Analysis
 #___________________________________________________________________________________________________
@@ -54,26 +54,49 @@ for name, param in model.named_parameters():
 
 #Create two profiles for a single inference step (batch size=1,context len=1000, num new tokens=20)
 input_ids = torch.randint(0, model.config.vocab_size, (1, 1000)).to(device)
+fixed_generation_length = 20
+generate_params = {
+    "input_ids": input_ids,
+    "temperature" : 0,
+    "max_new_tokens": fixed_generation_length, 
+    "min_new_tokens": fixed_generation_length, 
+    "do_sample": False, 
+}
 
 #Warm-up
 print("\nRunning warm-up...")
 for _ in range(3):
-    _ = model.generate(input_ids, max_new_tokens=20)
+    _ = model.generate(**generate_params)
 
 #2.1 Use the torch.profiler table to identify the longest running operations (CPU) and kernels (GPU).
 print("Profiling...")
-with profile(
-    activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
-    record_shapes=True,
-    profile_memory=False,
-    with_stack=True
-) as prof:
-    with record_function("model_inference"):
-        # Generate exactly 20 new tokens
-        model.generate(input_ids, max_new_tokens=20)
 
-print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=15)) #CPU
-print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=15)) #GPU
+if device == "cpu":
+    with profile(
+        activities=[ProfilerActivity.CPU],
+        record_shapes=True,
+        profile_memory=False,
+        with_stack=False
+    ) as profCPU:
+        with record_function("model_inference"):
+            model.generate(**generate_params)
+    print("\nCPU Sorted:")
+    print(profCPU.key_averages().table(sort_by="cpu_time_total", row_limit=15)) #CPU
+
+elif device == "cuda":
+    with profile(
+        activities=[ProfilerActivity.CUDA],
+        record_shapes=True,
+        profile_memory=False,
+        with_stack=True
+    ) as profCUDA:
+        with record_function("model_inference"):
+            model.generate(**generate_params)
+    print("\n\nCUDA Sorted:")
+    print(profCUDA.key_averages().table(sort_by="cuda_time_total", row_limit=15)) #GPU
 
 #2.2 Export for Perfetto (https://ui.perfetto.dev/)
-prof.export_chrome_trace("qwen_trace.json")
+if device == "cpu":
+    profCPU.export_chrome_trace("qwen_trace_CPU.json")
+elif device == "cuda":
+    profCUDA.export_chrome_trace("qwen_trace_CUDA.json")
