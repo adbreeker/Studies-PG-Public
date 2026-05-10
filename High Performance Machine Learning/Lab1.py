@@ -97,6 +97,6 @@ elif device == "cuda":
 
 #2.2 Export for Perfetto (https://ui.perfetto.dev/)
 if device == "cpu":
-    profCPU.export_chrome_trace("qwen_trace_CPU.json")
+    profCPU.export_chrome_trace("./Traces/Lab1_CPU.json")
 elif device == "cuda":
-    profCUDA.export_chrome_trace("qwen_trace_CUDA.json")
+    profCUDA.export_chrome_trace("./Traces/Lab1_CUDA.json")
