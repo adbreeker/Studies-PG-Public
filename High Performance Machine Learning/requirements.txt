@@ -9,3 +9,6 @@ torchaudio
 # Hugging Face Ecosystem
 transformers
 accelerate
+
+#Lab2:
+triton
