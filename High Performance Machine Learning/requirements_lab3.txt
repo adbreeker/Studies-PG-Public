@@ -1,0 +1,12 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# PyTorch Core & Intel Extension
+torch==2.8.0
+intel-extension-for-pytorch==2.8.0
+
+# Hugging Face Ecosystem
+transformers
+accelerate
+
+# Lab Utilities
+psutil
