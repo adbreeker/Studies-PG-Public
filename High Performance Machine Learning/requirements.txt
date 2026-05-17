@@ -12,3 +12,11 @@ accelerate
 
 #Lab2:
 triton
+
+#Lab3: 
+# Use requrements_lab3.txt and new venv to avoid conflicts of intel-extension and higher torch versions 
+psutil
+
+#Lab4:
+nvidia-modelopt[torch]
+requests
