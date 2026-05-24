@@ -48,13 +48,13 @@ def run_inference_and_profile(model, input_ids, mode_name):
     # Profiling
     with profile(
         activities=[ProfilerActivity.CPU],
-        record_shapes=True,
-        profile_memory=True,
-        with_stack=True
+        record_shapes=False,
+        profile_memory=False,
+        with_stack=False
     ) as prof:
         with record_function(f"model_inference_{mode_name}"):
             with torch.no_grad():
-                _ = model.generate(input_ids, max_new_tokens=DECODE_STEPS)
+                _ = model.generate(input_ids, max_new_tokens=DECODE_STEPS, min_new_tokens=DECODE_STEPS)
 
     end_time = time.time()
     stop_event.set()
@@ -85,6 +85,9 @@ def task0_fp16_baseline():
 
     run_inference_and_profile(model, input_ids, "FP16_Baseline")
 
+    del model
+    gc.collect()
+
 #Task 1: Full-model quantization with IPEX
 def task1_int8_quantization():
     print("\n\nINT8 Quantization with IPEX:")
@@ -106,7 +109,10 @@ def task1_int8_quantization():
     del prepared_model
     gc.collect()
 
-    run_inference_and_profile(quantized_model, tokenizer, input_ids, "INT8_IPEX")
+    run_inference_and_profile(quantized_model, input_ids, "INT8_IPEX")
+
+    del quantized_model
+    gc.collect()
 
 if __name__ == "__main__":
     #Task 0: FP16 baseline and memory measurement

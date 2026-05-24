@@ -1,5 +1,6 @@
 # Lab 4: GPU Quantization with ModelOpt
 import os
+import os.path as osp
 import time
 import warnings
 
@@ -13,6 +14,8 @@ import gc
 import torch.multiprocessing as mp
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import modelopt.torch.quantization as mtq
+from modelopt.torch.export import export_hf_checkpoint
+from torch.profiler import profile, record_function, ProfilerActivity
 
 
 MODEL_NAME = "Qwen/Qwen3-4B-Thinking-2507"
@@ -34,12 +37,21 @@ def run_inference(model, input_ids, mode_name):
     gc.collect()
     torch.cuda.empty_cache() 
     torch.cuda.reset_peak_memory_stats()
+    print(f"Weights tensor: {model.model.layers[0].mlp.down_proj.weight.data}")
 
     print(f"\n[{mode_name}] Inference running...")
     start_time = time.time()
 
-    with torch.no_grad():
-        _ = model.generate(input_ids, attention_mask=attention_mask, max_new_tokens=DECODE_STEPS, min_new_tokens=DECODE_STEPS)
+    with profile(
+        activities=[ProfilerActivity.CUDA],
+        record_shapes=False,
+        profile_memory=False,
+        with_stack=False
+    ) as prof:
+        with record_function(f"model_inference_{mode_name}"):
+            with torch.no_grad():
+                _ = model.generate(input_ids, attention_mask=attention_mask, max_new_tokens=DECODE_STEPS, min_new_tokens=DECODE_STEPS)
+        
 
     torch.cuda.synchronize()
     end_time = time.time()
@@ -49,12 +61,17 @@ def run_inference(model, input_ids, mode_name):
 
     print(f"[{mode_name}] Inference time: {inference_time:.4f} s")
     print(f"[{mode_name}] Peak GPU memory usage: {peak_mem_mb:.2f} MB")
+
+    # Trace export
+    trace_path = f"./Traces/Lab4_{mode_name}.json"
+    prof.export_chrome_trace(trace_path)
+    print(f"[{mode_name}] Trace exported to {trace_path}\n")
     print("_" * 50)
 
 # Dummy calibration loop for ModelOpt quantization
 def dummy_calibration_loop(model):
     for _ in range(4):
-        dummy_input = torch.randint(0, 32000, (1, 512), device="cuda")
+        dummy_input = torch.randint(0, 32000, (1, 64), device="cuda")
         with torch.no_grad():
             model(dummy_input)
 
@@ -72,6 +89,10 @@ def task0_fp16_baseline():
     model.eval()
 
     run_inference(model, input_ids, "FP16_Baseline")
+
+    del model
+    gc.collect()
+    torch.cuda.empty_cache()
     
 #Task 1: Fixed quantization recipes with ModelOpt 
 def task1_fixed_recipes(recipe, name):
@@ -85,6 +106,10 @@ def task1_fixed_recipes(recipe, name):
     model = mtq.quantize(model, recipe, forward_loop=dummy_calibration_loop)
     run_inference(model, input_ids, f"Quantized_{name}")
 
+    del model
+    gc.collect()
+    torch.cuda.empty_cache()
+
 #Task 2: AutoQuantize with mixed recipes
 def task2_auto_quantize():
     print("\n\nAutoQuantize (Mixed Recipes):")
@@ -96,8 +121,8 @@ def task2_auto_quantize():
 
     dummy_loader = [
         {
-            "input_ids": torch.randint(0, 32000, (1, 512), device="cuda"),
-            "labels": torch.randint(0, 32000, (1, 512), device="cuda")
+            "input_ids": torch.randint(0, 32000, (1, 64), device="cuda"),
+            "labels": torch.randint(0, 32000, (1, 64), device="cuda")
         }
         for _ in range(4)
     ]
