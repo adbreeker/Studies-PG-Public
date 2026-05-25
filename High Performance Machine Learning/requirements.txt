@@ -1,3 +1,6 @@
+# WARNING! 
+# Current pathing with spaces may cause issues with some tools, consider using venv in a path without spaces for better compatibility.
+
 # Point pip to the PyTorch nightly repository for CUDA 12.8 (RTX 50-series support)
 --extra-index-url https://download.pytorch.org/whl/nightly/cu128
 
@@ -14,9 +17,17 @@ accelerate
 triton
 
 #Lab3: 
-# Use requrements_lab3.txt and new venv to avoid conflicts of intel-extension and higher torch versions 
+# Use requirements_lab3.txt and new venv to avoid conflicts of intel-extension and higher torch versions 
 psutil
 
 #Lab4:
 nvidia-modelopt[torch]
 requests
+
+#Lab5:
+# Might not work with Blackwell's current venv setup, consider using a separate venv for Lab5 to avoid conflicts with other labs' dependencies
+vllm
+lmcache
+
+#Lab6:
+ray 
