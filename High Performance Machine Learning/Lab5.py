@@ -3,31 +3,39 @@ import sys
 import os
 import time
 import torch
-from transformers import AutoConfig
+
 
 os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
 
 MODEL_NAME = "Qwen/Qwen3-4B-Thinking-2507"
 VOCAB_SIZE = 32000
 DECODE_STEPS = 3
-MAX_MODEL_LEN = 16000
+MAX_MODEL_LEN = 1550
 
 def get_dummy_prompt(length):
     return "The quick brown fox jumps over the lazy dog. " * (length // 10 + 1)
 
+def get_dummy_tokens(length):
+    return torch.randint(0, VOCAB_SIZE, (1, length), device="cuda")
+
 # Task 0: Theoretical KV Cache Estimate and Baseline Run
 def task_0():
+    from transformers import AutoModelForCausalLM, AutoTokenizer
     print("\nTask 0: Theoretical KV Cache Estimate and Baseline Run")
 
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"\n[Task 0] Using {device.upper()} for inference.")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype=torch.float16,  device_map=device, trust_remote_code=True)
+
     # Theoretical Calculation
-    config = AutoConfig.from_pretrained(MODEL_NAME, trust_remote_code=True)
-    L = config.num_hidden_layers
-    H_kv = config.num_key_value_heads
-    D = config.head_dim
+    L = model.config.num_hidden_layers
+    H_kv = model.config.num_key_value_heads
+    D = model.config.head_dim
     b = 2 # 2 bytes for FP16/BF16
     
     kv_per_token = 2 * L * H_kv * D * b
-    print(f"[Task 0] KV cache size per token: {kv_per_token} bytes ({kv_per_token / 1024:.2f} KiB)")
+    print(f"\n[Task 0] KV cache size per token: {kv_per_token} bytes ({kv_per_token / 1024:.2f} KiB)")
     
     total_gpu_mem_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
     print(f"[Task 0] Total GPU Memory: {total_gpu_mem_gb:.2f} GB")
@@ -39,22 +47,25 @@ def task_0():
 
     # Baseline Run
     print("\n[Task 0] Initializing vLLM Baseline...")
-    from vllm import LLM, SamplingParams
-    
-    llm = LLM(
-        model=MODEL_NAME,
-        dtype=torch.float16,
-        trust_remote_code=True,
-        gpu_memory_utilization=0.8,
-        max_model_len=MAX_MODEL_LEN,
-    )
-    sampling_params = SamplingParams(max_tokens=DECODE_STEPS, min_tokens=DECODE_STEPS, temperature=0)
-    prompt = get_dummy_prompt(1000)
+
+    input_ids = get_dummy_tokens(1000)
+    generate_params = {
+        "input_ids": input_ids,
+        "temperature" : 0,
+        "max_new_tokens": 3, 
+        "min_new_tokens": 3, 
+        "do_sample": False, 
+    }
+
+    #Warm-up
+    print("\n[Task 0] Running warm-up...")
+    for _ in range(3):
+        _ = model.generate(**generate_params)
 
     torch.cuda.reset_peak_memory_stats()
     start_time = time.time()
     
-    outputs = llm.generate([prompt], sampling_params)
+    _ = model.generate(**generate_params)
     
     inference_time = time.time() - start_time
     free_mem, total_mem = torch.cuda.mem_get_info()
@@ -68,23 +79,36 @@ def task_0():
     print(f"[Task 0] Peak GPU Memory Reserved: {peak_mem_res:.4f} GB")
     print(f"[Task 0] Used GPU Memory: {used_mem_gb:.4f} GB")
 
+    estimated_remaining_bytes = (total_gpu_mem_gb - used_mem_gb) * (1024**3)
+    print(f"\n[Task 0] Real remaining memory for KV cache: {estimated_remaining_bytes / (1024**3):.2f} GB")
+    estimated_tokens = estimated_remaining_bytes / kv_per_token
+    print(f"[Task 0] Second estimate of tokens that fit in remaining memory: ~{int(estimated_tokens):,}")
+
+
+
 # Task 1: Empirical KV Cache Limit Without LMCache
 def task_1():
+    from transformers import AutoModelForCausalLM, AutoTokenizer
     print("\nTask 1: Empirical KV Cache Limit Without LMCache")
-    from vllm import LLM
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"\n[Task 1] Using {device.upper()} for inference.")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype=torch.float16,  device_map=device, trust_remote_code=True)
     
-    test_lengths = [1000, 8000, 12000, 16000, 20000, 240000, 28000, 32000, 64000, 128000, 256000]
+    test_lengths = [i * 500 for i in range (1, 512)]
     best_length = 0
     for index, length in enumerate(test_lengths):
         print(f"\n[Task 1] Testing with {length} tokens...")
         try:
-            llm = LLM(
-                model=MODEL_NAME,
-                dtype=torch.float16,
-                trust_remote_code=True,
-                gpu_memory_utilization=0.8,
-                max_model_len=length,
-            )
+            torch.cuda.reset_peak_memory_stats()
+            input_ids = get_dummy_tokens(length)
+            generate_params = {"input_ids": input_ids,"temperature" : 0,"max_new_tokens": 3, "min_new_tokens": 3, "do_sample": False, }
+            _ = model.generate(**generate_params)
+            free_mem, total_mem = torch.cuda.mem_get_info()
+            peak_mem_alloc = torch.cuda.max_memory_allocated() / (1024**3)
+            peak_mem_res = torch.cuda.max_memory_reserved() / (1024**3)
+            print(f"Total memory: {(total_mem / (1024**3)):.4f}GB , Free: {(free_mem / (1024**3)):.4f}GB | Peak Allocation: {peak_mem_alloc:.4f}GB | Peak Reserve: {peak_mem_res:.4f}GB")
         except RuntimeError as e:
             print(f"[Task 1] RuntimeError at {length} tokens: {e}")
             best_length = index - 1
@@ -111,7 +135,7 @@ def task_2():
     sampling_params = SamplingParams(max_tokens=10, min_tokens=10, temperature=0)
     
     # A massive shared prefix
-    shared_prefix = get_dummy_prompt(4000)
+    shared_prefix = get_dummy_prompt(1500)
 
     # Running prompts with same prefix to test cache reuse and offloading
     prompt_1 = shared_prefix + "\nQuestion: What is the capital of France?"

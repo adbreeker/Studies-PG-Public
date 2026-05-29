@@ -25,7 +25,7 @@ nvidia-modelopt[torch]
 requests
 
 #Lab5:
-# Might not work with Blackwell's current venv setup, consider using a separate venv for Lab5 to avoid conflicts with other labs' dependencies
+# Might not work with Blackwell's current venv setup, consider using a separate venv for Labs 5&6 to avoid conflicts with other labs' dependencies
 vllm
 lmcache
 

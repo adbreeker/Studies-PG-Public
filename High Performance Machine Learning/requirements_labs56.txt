@@ -1,0 +1,15 @@
+# PyTorch Core
+torch
+torchvision
+torchaudio
+
+# Hugging Face Ecosystem
+transformers
+accelerate
+
+#Lab5
+vllm
+lmcache
+
+#Lab6
+ray 
